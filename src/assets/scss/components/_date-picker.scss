@@ -1,0 +1,12 @@
+.datepicker {
+
+  &.datepicker-dropdown {
+    .datepicker-picker {
+      @apply w-[284px] inline-block rounded-lg bg-white dark:bg-gray-700 shadow-lg p-4;
+    }
+  }
+
+  .days {
+    @apply w-full;
+  }
+}

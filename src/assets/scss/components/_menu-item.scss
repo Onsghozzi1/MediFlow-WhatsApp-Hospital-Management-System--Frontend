@@ -1,0 +1,118 @@
+.collapse {
+  &:not(.show) {
+    @apply hidden;
+  }
+}
+
+[data-bs-toggle="collapse"] {
+
+  &[aria-expanded="true"] {
+    .collapsed-item-show {
+      @apply hidden;
+    }
+    .collapsed-item-hidden {
+      @apply block;
+    }
+  }
+  
+  &[aria-expanded="false"] {
+    .collapsed-item-show {
+      @apply block;
+    }
+    .collapsed-item-hidden {
+      @apply hidden;
+    }
+  }
+}
+
+.collapsing {
+  height: 0;
+  transition: height 0.15s ease;
+}
+
+.menu-item {
+  @apply cursor-pointer font-semibold px-3 rounded-md flex items-center w-full whitespace-nowrap gap-x-2 h-9 text-gray-600 dark:text-gray-400;
+
+  .menu-item-link {
+    @apply flex items-center h-full w-full gap-2;
+  }
+
+  &.menu-item-active {
+    @apply text-gray-900 bg-gray-200 hover:bg-gray-200;
+  }
+
+
+  &:not(.menu-item-disabled):not(.menu-item-active) {
+    @apply text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-900/[.1] dark:hover:bg-white/[.1];
+  }
+
+}
+
+.menu-item-icon {
+  @apply text-2xl;
+}
+
+:is([dir="rtl"] .menu-collapse-item) {
+  &:after,
+  &:before {
+    content: '';
+    @apply right-auto left-4;
+  }
+}
+
+.menu-collapse-item {
+  @apply cursor-pointer select-none relative font-semibold px-3 mb-2 h-9 rounded-md flex items-center gap-2 text-gray-600 ;
+
+  &:after,
+  &:before {
+    content: '';
+    @apply absolute bg-gray-600 hover:bg-gray-900 dark:bg-gray-400 dark:hover:bg-gray-100 rounded-sm w-1.5 h-0.5 top-5 right-4 transition-transform duration-150;
+  }
+
+  &:before {
+    transform: rotate(-45deg) translateX(2px) ;
+  }
+
+  &:after {
+    transform: rotate(-135deg) translateX(2px);
+  }
+
+  &:not(.menu-item-disabled):not(.menu-item-active) {
+    @apply hover:text-gray-900 hover:bg-gray-100;
+  }
+}
+
+.menu-collapse-item-active,
+.menu-collapse.active {
+  .menu-collapse-item {
+    &:after {
+      transform: rotate(-225deg) translateX(2px)
+    }
+
+    &:before {
+      transform: rotate(45deg) translateX(2px)
+    }
+  }
+}
+
+.menu-collapse-item[aria-expanded="true"] {
+  &:after {
+    transform: rotate(-225deg) translateX(2px)
+  }
+
+  &:before {
+    transform: rotate(45deg) translateX(2px)
+  }
+}
+
+.menu-item-divider {
+  @apply border-b border-gray-200 dark:border-gray-600 my-2;
+}
+
+.menu-item-disabled {
+  @apply cursor-not-allowed select-none opacity-60;
+}
+
+.menu-item-link {
+  @apply flex w-full h-full items-center;
+}

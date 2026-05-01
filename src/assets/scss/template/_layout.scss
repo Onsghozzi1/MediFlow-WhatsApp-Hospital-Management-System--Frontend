@@ -1,0 +1,27 @@
+.app-layout-modern {
+
+    .adaptable-card {
+        @apply border-0;
+
+        > .card-body {
+            @apply p-0;
+        }
+    }
+
+    .card-layout-frame {
+        @apply border border-gray-200 dark:border-gray-600;
+    }
+}
+
+.app-layout-classic,
+.app-layout-simple,
+.app-layout-decked
+.app-layout-stacked-side {
+    .adaptable-card {
+        @apply shadow;
+    }
+
+    .card-layout-frame {
+        @apply shadow;
+    }
+}

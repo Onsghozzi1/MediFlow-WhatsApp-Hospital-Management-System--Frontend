@@ -1,0 +1,72 @@
+.fade {
+  @apply transition-all duration-150;
+
+  &:not(.show) {
+    @apply opacity-0
+  }
+}
+
+.modal {
+  @apply fixed top-0 left-0 z-40 hidden w-full h-full overflow-x-hidden overflow-y-auto outline-0;
+
+  &.fade {
+    .modal-dialog {
+      &.dialog {
+        @apply transition-transform duration-150 ease-out transform scale-90
+      }
+    }
+  }
+
+  &.show {
+    .modal-dialog {
+      &.dialog {
+        @apply transform-none;
+      }
+    }
+  }
+}
+
+.modal-dialog {
+  @apply relative w-auto pointer-events-none;
+  transition: transform .3s ease-out;
+}
+
+.modal-backdrop {
+  &.fade {
+    @apply bg-opacity-0
+  }
+  &.show {
+    @apply bg-opacity-60
+  }
+
+  @apply bg-black inset-0 fixed z-30 h-screen w-screen;
+}
+
+.dialog {
+  @apply w-full mx-auto;
+}
+
+.dialog-content {
+  @apply pointer-events-auto p-6 rounded-lg shadow-xl sm:my-16 relative h-full bg-white dark:bg-gray-800;
+}
+
+@screen sm {
+  .dialog {
+    @apply max-w-sm w-full;
+  }
+}
+
+@screen md {
+  .dialog {
+    @apply max-w-[520px];
+  }
+}
+
+
+.dialog-overlay-after-open {
+  opacity: 1;
+}
+
+.dialog-overlay-before-close {
+  opacity: 0;
+}

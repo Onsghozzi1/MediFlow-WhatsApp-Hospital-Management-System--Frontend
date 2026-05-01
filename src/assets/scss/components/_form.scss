@@ -1,0 +1,58 @@
+.form-label {
+  @apply flex items-center font-semibold mb-2;
+
+  &.invalid {
+    @apply text-red-500;
+  }
+}
+
+.form-item {
+  @apply mb-7 relative;
+
+  &.horizontal {
+    @apply flex flex-auto;
+
+    .form-label {
+      @apply justify-end mb-0;
+    }
+  }
+
+  &.vertical {
+    @apply flex flex-col;
+  }
+
+  &.inline {
+    @apply md:inline-flex mr-3 rtl:ml-3;
+  }
+}
+
+.form-explain {
+  @apply text-red-500 absolute;
+}
+
+.form-container {
+  &.inline {
+    @apply md:flex items-center;
+  }
+}
+
+.invalid-feedback {
+  @apply hidden mt-1 text-red-500;
+}
+
+.was-validated {
+
+  .form-control:invalid {
+    @apply ring-1 ring-red-500 border-red-500;
+  }
+
+  :invalid~.invalid-feedback {
+    @apply block absolute;
+  }
+
+  .input-wrapper {
+    .invalid-feedback {
+      @apply top-full
+    }
+  }
+}

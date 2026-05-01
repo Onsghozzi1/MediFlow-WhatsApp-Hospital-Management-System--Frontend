@@ -1,0 +1,8 @@
+ #root {
+            background: linear-gradient(-45deg, #0ea5e9, #14b8a6, #2563eb);
+            background-size: 400% 400%;
+            animation: gradientMove 12s ease infinite;
+        }
+.logo-care-flow{
+            width:100px;
+        }

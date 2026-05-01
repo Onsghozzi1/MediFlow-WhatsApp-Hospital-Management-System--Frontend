@@ -1,0 +1,23 @@
+.dataTables_header {
+    @apply flex items-center justify-between gap-2 mb-4;
+}
+
+.dataTables_footer {
+    @apply flex items-center justify-between gap-2 mt-4;
+}
+
+.dataTables_filter {
+    > label {
+        @apply flex items-center gap-2;
+    }
+}
+
+.dataTables_length {
+    > label {
+        @apply flex items-center gap-2;
+    }
+}
+
+.dataTables_header_end {
+    @apply p-[1px];
+}

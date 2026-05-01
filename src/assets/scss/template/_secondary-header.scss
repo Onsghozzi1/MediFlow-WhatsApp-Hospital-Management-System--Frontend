@@ -1,0 +1,25 @@
+.secondary-header {
+  @apply h-16 flex items-center hidden md:flex;
+}
+
+.secondary-header-light {
+  @apply bg-white border-b border-gray-200;
+}
+
+.secondary-header-dark {
+  @apply bg-gray-800 border-b border-gray-700;
+}
+
+.secondary-header-themed {
+  @apply bg-primary-600;
+
+  .dropdown-toggle {
+    .menu-item {
+      @apply text-gray-100;
+
+      &:not(.menu-item-disabled):not(.menu-item-active) {
+        @apply text-gray-100 text-opacity-80 hover:text-opacity-100 hover:bg-gray-900 hover:bg-opacity-10;
+      }
+    }
+  }
+}

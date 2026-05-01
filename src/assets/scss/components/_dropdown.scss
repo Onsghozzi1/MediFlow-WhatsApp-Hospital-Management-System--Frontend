@@ -1,0 +1,138 @@
+.dropdown-menu {
+  @apply relative inline-block;
+
+  .menu-item {
+    @apply relative;
+
+    &:hover {
+      .dropdown-sub-menu {
+        @apply block ltr:left-full rtl:right-full top-0;
+      }
+    }
+  }
+}
+
+.dropdown-menu,
+.dropdown-sub-menu {
+  @apply hidden rounded-md shadow-lg bg-white dark:bg-gray-700 min-w-[160px] dark:shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none p-1.5 absolute z-30;
+}
+
+.dropdown-menu {
+
+  &.show {
+    @apply block;
+  }
+
+  &.top-start {
+    @apply ltr:left-0 rtl:right-0 bottom-full origin-bottom;
+  }
+
+  &.top-center {
+    @apply bottom-full left-1/2 origin-bottom;
+  }
+
+  &.top-end {
+    @apply ltr:right-0 rtl:left-0 bottom-full origin-bottom;
+  }
+
+  &.bottom-start {
+    --bs-position: start;
+    @apply ltr:left-0 rtl:right-0 top-full origin-top;
+  }
+
+  &.bottom-center {
+    @apply left-1/2 top-full origin-top;
+  }
+
+  &.bottom-end {
+    --bs-position: end;
+    @apply ltr:right-0 rtl:left-0 top-full origin-top;
+  }
+
+  &.middle-start-top {
+    @apply left-full top-0 origin-top;
+  }
+
+  &.middle-start-bottom {
+    @apply left-full bottom-0 origin-bottom;
+  }
+
+  &.middle-end-top {
+    @apply right-full top-0 origin-top;
+  }
+
+  &.middle-end-bottom {
+    @apply right-full bottom-0 origin-bottom;
+  }
+  
+  @apply bg-white;
+
+  .menu-collapse-item,
+  .menu-item {
+    @apply text-gray-600;
+
+    &:after,
+    &:before {
+      @apply bg-gray-600 dark:bg-gray-400;
+    }
+
+    &:not(.menu-item-disabled):not(.menu-item-active) {
+      @apply text-gray-600 hover:text-gray-900 hover:bg-gray-100;
+    
+      &:after,
+      &:before {
+        @apply text-gray-600;
+      }
+    }
+
+    &.menu-item-active {
+      @apply text-gray-900 dark:text-gray-100 bg-gray-100 dark:bg-white/[.1];
+    }
+  }
+}
+
+.dropdown-toggle-default {
+  @apply cursor-pointer p-2 inline-block;
+
+  &.dropdown-toggle-disabled {
+    @apply opacity-60;
+  }
+}
+:is([dir="rtl"] .dropdown-submenu-item) {
+  
+
+  &:after,
+  &:before {
+    content: '';
+    @apply right-auto left-4;
+  }
+
+  &:before {
+    transform: rotate(-35deg) translateX(2px) ;
+  }
+
+  &:after {
+    transform: rotate(40deg) translateX(2px);
+  }
+}
+
+
+.dropdown-submenu-item {
+  &:after,
+  &:before {
+    content: '';
+    @apply absolute bg-gray-600 hover:bg-gray-900 dark:bg-gray-400 dark:hover:bg-gray-100 rounded-sm w-1.5 h-0.5 top-[18px] right-4 transition-transform duration-150;
+  }
+
+  &:before {
+    transform: rotate(-135deg) translateX(2px) ;
+  }
+
+  &:after {
+    transform: rotate(-220deg) translateX(2px);
+  }
+}
+
+.dropdown-toggle-disabled {
+  @apply cursor-not-allowed;
+}

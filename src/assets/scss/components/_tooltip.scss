@@ -1,0 +1,70 @@
+.tooltip {
+  --tooltip-arrow-width: 12px;
+  --tooltip-arrow-height: 6px;
+
+  @apply z-50 max-w-[250px] text-white rounded-lg py-2 px-4 relative bg-gray-800 dark:bg-black opacity-0 ;
+
+  &.fade {
+    @apply transition-none;
+  }
+
+  &.show {
+    @apply opacity-100;
+  }
+
+  .tooltip-arrow {
+    width: var(--tooltip-arrow-width);
+    height: var(--tooltip-arrow-height);
+    @apply block;
+
+    &:before {
+      position: absolute;
+      content: "";
+      border-color: transparent;
+      border-style: solid;
+    }
+  }
+}
+
+.bs-tooltip-top .tooltip-arrow,
+.bs-tooltip-auto[data-popper-placement^=top] .tooltip-arrow {
+  bottom: -6px;
+}
+.bs-tooltip-top .tooltip-arrow::before, 
+.bs-tooltip-auto[data-popper-placement^=top] .tooltip-arrow::before {
+  @apply -top-[1px] border-t-gray-800 dark:border-t-black;
+  border-width: var(--tooltip-arrow-height) calc(var(--tooltip-arrow-width) * 0.5) 0;
+}
+
+.bs-tooltip-end .tooltip-arrow, .bs-tooltip-auto[data-popper-placement^=right] .tooltip-arrow {
+  left: calc(-1 * var(--tooltip-arrow-height));
+  width: var(--tooltip-arrow-height);
+  height: var(--tooltip-arrow-width);
+}
+.bs-tooltip-end .tooltip-arrow::before, .bs-tooltip-auto[data-popper-placement^=right] .tooltip-arrow::before {
+  border-width: calc(var(--tooltip-arrow-width) * 0.5) var(--tooltip-arrow-height) calc(var(--tooltip-arrow-width) * 0.5) 0;
+  @apply -right-[1px] border-r-gray-800 dark:border-r-black;
+}
+
+.bs-tooltip-bottom .tooltip-arrow, .bs-tooltip-auto[data-popper-placement^=bottom] .tooltip-arrow {
+  top: calc(-1 * var(--tooltip-arrow-height));
+}
+.bs-tooltip-bottom .tooltip-arrow::before, .bs-tooltip-auto[data-popper-placement^=bottom] .tooltip-arrow::before {
+  border-width: 0 calc(var(--tooltip-arrow-width) * 0.5) var(--tooltip-arrow-height);
+  @apply -bottom-[1px] border-b-gray-800 dark:border-b-black;
+}
+
+/* rtl:begin:ignore */
+.bs-tooltip-start .tooltip-arrow, .bs-tooltip-auto[data-popper-placement^=left] .tooltip-arrow {
+  right: calc(-1 * var(--tooltip-arrow-height));
+  width: var(--tooltip-arrow-height);
+  height: var(--tooltip-arrow-width);
+}
+.bs-tooltip-start .tooltip-arrow::before, .bs-tooltip-auto[data-popper-placement^=left] .tooltip-arrow::before {
+  border-width: calc(var(--tooltip-arrow-width) * 0.5) 0 calc(var(--tooltip-arrow-width) * 0.5) var(--tooltip-arrow-height);
+  @apply -left-[1px] border-l-gray-800 dark:border-l-black;
+}
+
+.tooltip-wrapper {
+  @apply inline-flex;
+}

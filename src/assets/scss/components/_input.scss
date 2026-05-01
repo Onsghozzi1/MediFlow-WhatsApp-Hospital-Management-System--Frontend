@@ -1,0 +1,86 @@
+.input {
+  @apply border 
+    border-gray-300 
+    dark:border-gray-600 
+    dark:bg-gray-600
+    rounded-md 
+    w-full 
+    py-2 px-3 
+    focus:outline-none 
+    focus:ring-1 
+    focus-within:ring-1 
+    appearance-none 
+    transition 
+    duration-150 
+    dark:text-gray-100
+    ease-in-out
+    h-11 
+    focus:ring-primary-600 
+    focus-within:ring-primary-600 
+    focus-within:border-primary-600 
+    focus:border-primary-600;
+
+  &::placeholder {
+    @apply text-gray-400;
+  }
+
+  &.input-invalid {
+    @apply ring-1 ring-red-500 border-red-500;
+  }
+
+  &.input-lg {
+    @apply text-lg h-14;
+  }
+
+  &.input-sm {
+    @apply h-9;
+  }
+
+  &:disabled {
+    @apply bg-gray-100 dark:bg-gray-700  text-gray-400 cursor-not-allowed;
+  
+    &::placeholder {
+      @apply opacity-70;
+    }
+  }
+
+  &[type=file]::file-selector-button {
+    @apply invisible w-0 px-0 mx-0;
+  }
+}
+
+.input-addon {
+  @apply flex items-center px-4 rounded-md border border-gray-300 bg-gray-50 dark:border-gray-600 dark:bg-gray-700 h-11;
+
+  &.input-addon-lg {
+    @apply text-lg h-14;
+  }
+
+  &.input-addon-sm {
+    @apply h-9;
+  }
+}
+
+.input-textarea {
+  min-height: 7rem;
+}
+
+.input-wrapper {
+  @apply relative w-full flex;
+}
+
+.input-disabled {
+  @apply bg-gray-100 dark:bg-gray-700  text-gray-400 cursor-not-allowed;
+
+  &::placeholder {
+    @apply opacity-70;
+  }
+}
+
+.input-suffix-start {
+  @apply absolute top-2/4 transform -translate-y-2/4 ltr:left-2.5 rtl:right-2.5;
+}
+
+.input-suffix-end {
+  @apply absolute top-2/4 transform -translate-y-2/4 ltr:right-2.5 rtl:left-2.5 flex;
+}

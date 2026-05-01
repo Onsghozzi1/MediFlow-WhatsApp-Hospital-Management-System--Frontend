@@ -1,0 +1,76 @@
+<!-- App Start-->
+<div id="root">
+    <!-- App Layout-->
+    <div class="app-layout-blank flex flex-auto flex-col h-[100vh]">
+        <main class="h-full">
+            <div class="page-container relative h-full flex flex-auto flex-col">
+                <div class="h-full">
+                    <div class="container mx-auto flex flex-col flex-auto items-center justify-center min-w-0 h-full">
+                        <div class="card min-w-[320px] md:min-w-[450px] card-shadow" role="presentation">
+                            <div class="card-body md:p-10">
+                                <div class="text-center">
+                                    <div class="logo">
+                                        <img class="mx-auto logo-care-flow" src="assets/img/logo/logo.png"
+                                            alt="care flow logo">
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="mb-4">
+                                        <h3 class="mb-1">Sign Up</h3>
+                                        <p>And lets get started with your free trial</p>
+                                    </div>
+                                    <div>
+                                        <form action="#">
+                                            <div class="form-container vertical">
+                                                <div class="form-item vertical">
+                                                    <label class="form-label mb-2">User Name</label>
+                                                    <div>
+                                                        <input class="input" type="text" name="userName"
+                                                            autocomplete="off" placeholder="User Name" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="form-item vertical">
+                                                    <label class="form-label mb-2">Email</label>
+                                                    <div>
+                                                        <input class="input" type="text" name="userName"
+                                                            autocomplete="off" placeholder="Email" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="form-item vertical">
+                                                    <label class="form-label mb-2">Password</label>
+                                                    <div>
+                                                        <span class="input-wrapper" style="position: relative;">
+                                                            <input class="input" name="password"
+                                                                [class.border-red-500]="hasError('password', 'required')"
+                                                                [type]="showPassword ? 'text' : 'password'"
+                                                                autocomplete="off" formControlName="password">
+
+                                                            <!-- Force LEFT -->
+                                                            <span class="cursor-pointer text-xl"
+                                                                (click)="togglePasswordVisibility()" style="position: absolute; right: 0.75rem; top: 50%;
+                                                                     transform: translateY(-50%);">
+                                                                <i class="fa" [class.fa-eye]="showPassword"
+                                                                    [class.fa-eye-slash]="!showPassword"></i>
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                             
+                                                <button class="btn btn-solid w-full" type="submit">Sign Up</button>
+                                                <div class="mt-4 text-center">
+                                                    <span>Already have an account?</span>
+                                                    <a class="text-primary-600 hover:underline"
+                                                        [routerLink]="['/login']">Sign In</a>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>

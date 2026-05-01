@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply text-gray-500 dark:text-gray-400 text-sm bg-gray-100 dark:bg-gray-900 leading-normal;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  .h1 {
+    @apply text-4xl font-bold text-gray-900 dark:text-gray-100;
+  }
+
+  h2,
+  .h2 {
+    @apply text-3xl font-bold text-gray-900 dark:text-gray-100;
+  }
+
+  h3,
+  .h3 {
+    @apply text-2xl font-semibold text-gray-900 dark:text-gray-100;
+  }
+
+  h4,
+  .h4 {
+    @apply text-xl font-semibold text-gray-900 dark:text-gray-100;
+  }
+
+  h5,
+  .h5 {
+    @apply text-lg font-semibold text-gray-900 dark:text-gray-100;
+  }
+
+  h6,
+  .h6 {
+    @apply text-base font-semibold text-gray-900 dark:text-gray-100;
+  }
+
+  hr {
+    @apply border-gray-200 dark:border-gray-600;
+  }
+
+  .heading-text {
+    @apply text-gray-900 dark:text-gray-100;
+  }
+}
+
+@layer utilities {
+  .visible {
+    visibility: visible;
+  }
+  .invisible {
+    visibility: hidden;
+  }
+}
+
+:root {
+  --primary-color-50: #eef2ff;
+  --primary-color-100: #e0e7ff;
+  --primary-color-200: #c7d2fe;
+  --primary-color-300: #a5b4fc;
+  --primary-color-400: #818cf8;
+  --primary-color-500: #6366f1;
+  --primary-color-600: #1f7ed4;
+  --primary-color-700: #4338ca;
+  --primary-color-800: #3730a3;
+  --primary-color-900: #312e81;
+  --primary-color-950: #1e1b4b;
+}

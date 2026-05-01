@@ -1,0 +1,95 @@
+<!-- App Start-->
+<div id="root">
+    <!-- App Layout-->
+    <div class="app-layout-blank flex flex-auto flex-col h-[100vh]">
+        <div class="h-full flex flex-auto flex-col justify-between">
+            <main class="h-full">
+                <div class="page-container relative h-full flex flex-auto flex-col">
+                    <div class="grid lg:grid-cols-3 h-full">
+                        <div class="bg-no-repeat bg-cover py-6 px-16 flex-col justify-between hidden lg:flex"
+                            style="background-image: url('img/others/auth-side-bg.jpg');">
+                            <div class="logo">
+                                <img src="assets/img/logo/logo-care-flow.png" alt="logo">
+                            </div>
+                            <div>
+                                <div class="mb-6 flex items-center gap-4">
+                                    <span class="avatar avatar-circle avatar-md border-2 border-white">
+                                        <img class="avatar-img avatar-circle" src="assets/img/avatars/thumb-logo.png"
+                                            loading="lazy">
+                                    </span>
+                                    <div class="text-white">
+                                        <div class="font-semibold text-base">CareFlow Medical System</div>
+                                    </div>
+                                </div>
+                                <p class="text-lg text-white opacity-80">A complete solution for managing clinics and
+                                    hospitals.
+                                    Easily handle patients, doctors, and appointments in a secure and efficient way.</p>
+                            </div>
+                            <span class="text-white">Copyright © 2026
+                                <span class="font-semibold">Onab coding</span>
+                            </span>
+                        </div>
+                        <div class="col-span-2 flex flex-col justify-center items-center bg-white dark:bg-gray-800">
+                            <div class="xl:min-w-[450px] px-8">
+                                <div class="mb-8">
+                                    <h3 class="mb-1">Welcome back!</h3>
+                                    <p>Please enter your credentials to sign in!</p>
+                                </div>
+                                <div>
+                                    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                                        <div class="form-container vertical">
+                                            <div class="form-item vertical">
+                                                <label class="form-label mb-2">User Name</label>
+                                                <div>
+                                                    <input class="input" type="text" formControlName="email"
+                                                        name="userName" autocomplete="off" placeholder="User Name"
+                                                        value="">
+                                                </div>
+                                            </div>
+                                            <div class="form-item vertical">
+                                                <label class="form-label mb-2">Password</label>
+                                                <div>
+                                                    <span class="input-wrapper">
+
+                                                        <span class="input-wrapper" style="position: relative;">
+                                                            <input class="input" name="password"
+                                                                [class.border-red-500]="hasError('password', 'required')"
+                                                                [type]="showPassword ? 'text' : 'password'"
+                                                                autocomplete="off" formControlName="password">
+
+                                                            <!-- Force LEFT -->
+                                                            <span class="cursor-pointer text-xl"
+                                                                (click)="togglePasswordVisibility()" style="position: absolute; right: 0.75rem; top: 50%;
+                                                                     transform: translateY(-50%);">
+                                                                <i class="fa" [class.fa-eye]="showPassword"
+                                                                    [class.fa-eye-slash]="!showPassword"></i>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="flex justify-between mb-6">
+                                                <label class="checkbox-label mb-0">
+                                                    <input class="checkbox" type="checkbox" value="true" checked>
+                                                    <span class="ltr:ml-2 rtl:mr-2">Remember Me</span>
+                                                </label>
+                                                <a class="text-primary-600 hover:underline"
+                                                    href="forgot-password-side.html">Forgot Password?</a>
+                                            </div>
+                                            <button class="btn btn-solid w-full" type="submit">Sign In</button>
+                                            <div class="mt-4 text-center">
+                                                <span>Don't have an account yet?</span>
+                                                <a class="text-primary-600 hover:underline"[routerLink]="['/signup']">Sign
+                                                    up</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</div>

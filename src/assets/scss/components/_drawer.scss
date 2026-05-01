@@ -1,0 +1,71 @@
+.drawer {
+  @apply overflow-hidden transition-transform duration-150 absolute;
+
+  &.drawer-end {
+    @apply w-[400px] h-full ltr:ml-auto ltr:translate-x-full rtl:-translate-x-full ltr:right-0 rtl:left-0;
+  }
+
+  &.drawer-start {
+    @apply w-[400px] h-full ltr:mr-auto ltr:-translate-x-full rtl:translate-x-full ltr:left-0 rtl:right-0;
+  }
+
+  &.drawer-bottom {
+    @apply w-full h-[400px] bottom-0 translate-y-full;
+  }
+
+  &.drawer-top {
+    @apply w-full h-[400px] top-0 -translate-y-full;
+  }
+}
+
+.modal.show {
+  .drawer {
+    &.drawer-end,
+    &.drawer-start {
+      @apply ltr:translate-x-0 rtl:-translate-x-0;
+    }
+    
+    &.drawer-bottom,
+    &.drawer-top {
+      @apply translate-y-0;
+    }
+  }
+}
+
+.drawer-content {
+  @apply pointer-events-auto shadow-xl relative h-full bg-white dark:bg-gray-800 flex flex-col;
+
+  &.vertical {
+    @apply h-full;
+  }
+
+  &.horizontal {
+    @apply w-full;
+  }
+}
+
+.drawer-header {
+  @apply flex items-center justify-between py-4 px-6 border-b border-gray-200 dark:border-gray-700;
+}
+
+.drawer-body {
+  @apply p-6 h-full overflow-y-auto;
+}
+
+.drawer-footer {
+  @apply flex items-center justify-between py-4 px-6 border-t border-gray-200 dark:border-gray-700;
+}
+
+.drawer-open {
+  &.drawer-lock-scroll {
+    @apply overflow-hidden;
+  }
+}
+
+.drawer-overlay-after-open {
+  opacity: 1;
+}
+
+.drawer-overlay-before-close {
+  opacity: 0;
+}
