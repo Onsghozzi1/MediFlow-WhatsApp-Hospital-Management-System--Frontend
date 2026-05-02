@@ -6,3 +6,7 @@
 .logo-care-flow{
             width:100px;
         }
+.swal-multiline {
+  white-space: pre-line !important;
+  text-align: left;
+}
