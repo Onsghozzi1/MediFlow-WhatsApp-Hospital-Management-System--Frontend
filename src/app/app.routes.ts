@@ -28,6 +28,18 @@ export const routes: Routes = [
         loadChildren: () =>
           import('./features/dashboard/dashboard.routes')
             .then(m => m.DASHBOARD_ROUTES)
+      },
+      {
+        path: 'users',
+        loadChildren: () =>
+          import('./features/users/user.routes')
+            .then(m => m.user_ROUTES)
+      },
+      {
+        path: 'patients',
+        loadChildren: () =>
+          import('./features/patients/patients.routes')
+            .then(m => m.PATIENTS_ROUTES)
       }
     ]
   },
@@ -35,7 +47,13 @@ export const routes: Routes = [
   // 🔁 Default redirect
   {
     path: '',
-    redirectTo: 'auth/login',
+    redirectTo: 'login',
     pathMatch: 'full'
+  },
+
+  // 🚫 fallback
+  {
+    path: '**',
+    redirectTo: 'login'
   }
 ];

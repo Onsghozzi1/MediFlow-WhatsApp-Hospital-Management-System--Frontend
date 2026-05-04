@@ -1,0 +1,208 @@
+<body class="bg-gray-50 dark:bg-gray-900">
+  <div id="root">
+    <div class="app-layout-modern flex flex-auto flex-col">
+      <div class="flex flex-auto min-w-0">
+
+        <div class="flex flex-col flex-auto min-h-screen min-w-0 bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+
+          <div class="h-full flex flex-auto flex-col justify-between">
+
+            <main class="h-full flex items-center justify-center">
+
+              <div class="container mx-auto px-4 sm:px-6 md:px-8 py-6 flex items-center justify-center">
+
+                <div class="card adaptable-card w-full max-w-3xl shadow-xl rounded-2xl border border-gray-100 dark:border-gray-700">
+
+                  <div class="card-body p-6 sm:p-8">
+
+                    <!-- HEADER -->
+                    <div class="flex items-start gap-4 mb-6">
+
+                      <!-- Back Button -->
+                      <button
+                        class="btn btn-two-tune btn-sm btn-icon rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+                        (click)="return()" title="Back">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                          viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="1.5" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+                        </svg>
+                      </button>
+
+                      <!-- Title -->
+                      <div>
+                        <h3 class="text-2xl font-semibold text-gray-800 dark:text-white">
+                          Personal Information
+                        </h3>
+                        <p class="text-sm text-gray-500">
+                          Fill in the details to {{ userId ? 'update user' : 'create a new account' }}
+                        </p>
+                      </div>
+
+                    </div>
+
+                    <!-- FORM -->
+                    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+                      <div class="form-container vertical space-y-5">
+
+                        <!-- Names -->
+                        <div class="grid md:grid-cols-2 gap-4">
+
+                          <!-- First Name -->
+                          <div class="form-item">
+                            <label class="form-label mb-1 text-sm font-medium text-gray-600 dark:text-gray-300">
+                              First Name
+                            </label>
+
+                            <input
+                              class="input w-full rounded-xl border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                              type="text"
+                              placeholder="First Name"
+                              formControlName="firstName" />
+
+                            @if (hasError('firstName', 'required')) {
+                              <div class="text-red-500 text-xs mt-1 flex items-center gap-1">
+                                ⚠ First Name is required
+                              </div>
+                            }
+                          </div>
+
+                          <!-- Last Name -->
+                          <div class="form-item">
+                            <label class="form-label mb-1 text-sm font-medium text-gray-600 dark:text-gray-300">
+                              Last Name
+                            </label>
+
+                            <input
+                              class="input w-full rounded-xl border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                              type="text"
+                              placeholder="Last Name"
+                              formControlName="lastName" />
+
+                            @if (hasError('lastName', 'required')) {
+                              <div class="text-red-500 text-xs mt-1 flex items-center gap-1">
+                                ⚠ Last Name is required
+                              </div>
+                            }
+                          </div>
+
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-item">
+                          <label class="form-label mb-1 text-sm font-medium text-gray-600 dark:text-gray-300">
+                            Email
+                          </label>
+
+                          <input
+                            class="input w-full rounded-xl border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                            type="email"
+                            placeholder="Email"
+                            formControlName="email"
+                            [readonly]="!!userId"
+                            [ngClass]="{ 'bg-gray-100 cursor-not-allowed': userId }" />
+                        </div>
+
+                        <!-- Role -->
+                        <div class="form-item">
+                          <label class="form-label mb-1 text-sm font-medium text-gray-600 dark:text-gray-300">
+                            Role
+                          </label>
+
+                          <select
+                            class="input w-full rounded-xl border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                            formControlName="role">
+                            <option value="">Select Role</option>
+                            <option value="ADMIN">ADMIN</option>
+                            <option value="DOCTOR">DOCTOR</option>
+                          </select>
+
+                          @if (hasError('role', 'required')) {
+                            <div class="text-red-500 text-xs mt-1 flex items-center gap-1">
+                              ⚠ Role is required
+                            </div>
+                          }
+                        </div>
+
+                        <!-- Password + Phone -->
+                        <div class="grid md:grid-cols-2 gap-4">
+
+                          <!-- Password -->
+                          @if (!userId) {
+                            <div class="form-item">
+                              <label class="form-label mb-1 text-sm font-medium text-gray-600 dark:text-gray-300">
+                                Password
+                              </label>
+
+                              <span class="input-wrapper" style="position: relative;">
+                                <input
+                                  class="input"
+                                  name="password"
+                                  [class.border-red-500]="hasError('password', 'required')"
+                                  [type]="showPassword ? 'text' : 'password'"
+                                  formControlName="password">
+
+                                <span
+                                  class="cursor-pointer text-xl"
+                                  (click)="togglePasswordVisibility()"
+                                  style="position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%);">
+                                  <i class="fa"
+                                    [class.fa-eye]="showPassword"
+                                    [class.fa-eye-slash]="!showPassword"></i>
+                                </span>
+                              </span>
+
+                              @if (hasError('password', 'required')) {
+                                <div class="text-red-500 text-xs mt-1 flex items-center gap-1">
+                                  ⚠ Password is required
+                                </div>
+                              }
+                            </div>
+                          }
+
+                          <!-- Phone -->
+                          <div class="form-item">
+                            <label class="form-label mb-1 text-sm font-medium text-gray-600 dark:text-gray-300">
+                              Phone Number
+                            </label>
+
+                            <input
+                              class="input w-full rounded-xl border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                              type="text"
+                              placeholder="Phone Number"
+                              formControlName="phoneNumber" />
+
+                            @if (hasError('phoneNumber', 'required')) {
+                              <div class="text-red-500 text-xs mt-1 flex items-center gap-1">
+                                ⚠ Phone is required
+                              </div>
+                            }
+                          </div>
+
+                        </div>
+
+                        <!-- Submit -->
+                        <div class="flex justify-end pt-4">
+                          <button
+                            type="submit"
+                            class="px-6 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium transition shadow-md hover:shadow-lg">
+                            {{ userId ? 'Update' : 'Save' }}
+                          </button>
+                        </div>
+
+                      </div>
+                    </form>
+
+                  </div>
+                </div>
+
+              </div>
+            </main>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

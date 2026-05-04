@@ -1,0 +1,269 @@
+<div id="root">
+    <!-- App Layout-->
+    <div class="app-layout-modern flex flex-auto flex-col">
+        <div class="flex flex-auto min-w-0">
+            <!-- Header Nav start-->
+            <div
+                class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full  dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+                <div class="h-full flex flex-auto flex-col justify-between">
+                    <!-- Content start -->
+                    <main class="h-full">
+                        <div
+                            class="page-container relative h-full flex flex-auto flex-col px-4 sm:px-6 md:px-8 py-4 sm:py-6">
+                            <div class="container mx-auto">
+                                <!-- Page title section -->
+                                <div class="mb-4">
+                                    <div class="flex items-center justify-between mb-6">
+                                        <!-- Left: Page Title -->
+                                        <h1 class="text-2xl font-semibold text-gray-900">
+                                            Account & User Administration
+                                        </h1>
+
+                                        <!-- Right: Actions -->
+                                        <div class="flex items-center gap-3">
+                                            <button (click)="registerRouter()"
+                                                class="flex items-center gap-2 btn btn btn-two-tune">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" d="M12 4v16m8-8H4" />
+                                                </svg>
+                                                <span>New User</span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!-- Dashboard statistics cards -->
+                                <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 mb-6">
+
+                                    <!-- Total Users card -->
+                                    <div class="card card-border">
+                                        <div class="card-body">
+                                            <div class="flex justify-between items-center">
+                                                <div class="flex items-center gap-4">
+                                                    <!-- Users icon -->
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        class="feather feather-users">
+                                                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                                        <circle cx="9" cy="7" r="4"></circle>
+                                                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                                    </svg>
+                                                    <div>
+                                                        <span>Total Users</span>
+                                                        <h3>
+                                                            <!-- Display total user count from ListUser array -->
+                                                            <span>{{this.ListUser.content.length}}</span>
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Active Accounts card -->
+                                    <div class="card card-border">
+                                        <div class="card-body">
+                                            <div class="flex justify-between items-center">
+                                                <div class="flex items-center gap-4">
+                                                    <!-- Active user icon with green indicator -->
+                                                    <span class=" avatar-rounded !w-16 !h-16"
+                                                        style="font-size: 2.5rem;">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                            fill="currentColor" width="24" height="24">
+                                                            <path d="M12 12a4 4 0 100-8 4 4 0 000 8z" />
+                                                            <path
+                                                                d="M12 14c-4.42 0-8 1.79-8 4v2h16v-2c0-2.21-3.58-4-8-4z" />
+                                                            <!-- Green circle indicates active status -->
+                                                            <circle cx="18" cy="6" r="3" fill="#10b981" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div>
+                                                        <span>Active Accounts</span>
+                                                        <h3>
+                                                            <!-- Display count of validated/active users -->
+                                                            <span>{{validatedCount}}</span>
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Pending Accounts card -->
+                                    <div class="card card-border" role="presentation">
+                                        <div class="card-body">
+                                            <div class="flex justify-between items-center">
+                                                <div class="flex items-center gap-4">
+                                                    <!-- Pending user icon with red indicator -->
+                                                    <span class=" avatar-rounded !w-16 !h-16"
+                                                        style="font-size: 2.5rem;">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                            fill="currentColor" width="24" height="24">
+                                                            <!-- User silhouette -->
+                                                            <path d="M12 12a4 4 0 100-8 4 4 0 000 8z" />
+                                                            <path
+                                                                d="M12 14c-4.42 0-8 1.79-8 4v2h16v-2c0-2.21-3.58-4-8-4z" />
+                                                            <!-- Red circle indicates pending/not validated status -->
+                                                            <circle cx="18" cy="6" r="3" fill="#ef4444" />
+                                                        </svg>
+                                                    </span>
+                                                    <div>
+                                                        <span>Pending Accounts</span>
+                                                        <h3>
+                                                            <!-- Display count of unvalidated/pending users -->
+                                                            <span>{{UnvalidatedCount}}</span>
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Users data table -->
+                                <div class="card adaptable-card">
+                                    <div class="card-body overflow-x-auto border border-gray-200 rounded-lg">
+                                        <!-- Users table -->
+                                        <table id="customers-data-table" class="table-default table-hover data-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+                                                    <th>Role</th>
+                                                    <th>Status</th>
+                                                    <th>Last Online</th>
+                                                    <th></th>
+                                                </tr>
+
+                                            </thead>
+
+                                            <tbody>
+                                                <!-- Loop through each user in ListUser array -->
+                                                <tr *ngFor="let user of ListUser.content">
+                                                    <!-- User name column with profile picture -->
+                                                    <td>
+                                                        <div class="flex items-center">
+                                                            <span class="avatar avatar-circle w-[28px]"
+                                                                data-avatar-size="28">
+                                                                <!-- Display user profile picture if available -->
+                                                                <ng-container *ngIf="user?.profilePicture">
+                                                                    <img [src]="'data:image/png;base64,' + user.profilePicture"
+                                                                        alt="User Profile"
+                                                                        class="avatar-img avatar-circle" />
+                                                                </ng-container>
+                                                            </span>
+                                                            <!-- User full name -->
+                                                            <a class="hover:text-primary-600 ml-2 rtl:mr-2 font-semibold"
+                                                                href="#?id=7">
+                                                                {{user.firstName + ' ' + user.lastName}}
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                    <!-- User email -->
+                                                    <td>{{user.email}}</td>
+                                                    <!-- User Role -->
+                                                    <td>
+                                                        <select [(ngModel)]="user.roleTypes" [ngClass]="{
+                                                        'text-emerald-600': user.isValidated,
+                                                        'text-red-600': !user.isValidated}"
+                                                            (change)="onChangeRole(user,$event)"
+                                                            class="appearance-none border rounded-lg px-3 py-1.5 pr-8 text-sm font-medium shadow-sm">
+                                                            <option value="ADMIN">Admin</option>
+                                                            <option value="DOCTOR">DOCTOR</option>
+                                                        </select>
+                                                    </td>
+                                                    <!-- Account status column -->
+                                                    <td>
+                                                        <div class="flex items-center">
+                                                            <!-- Dynamic status indicator -->
+                                                            <div class="flex items-center gap-2">
+                                                                <!-- Status dot - green for active, red for pending -->
+                                                                <div class="flex items-center">
+                                                                    <!-- Badge dot - Changera automatiquement avec ngModel -->
+                                                                    <span class="badge-dot" [ngClass]="{
+                                                                      'bg-emerald-500': user.isValidated, 
+                                                                      'bg-red-500': !user.isValidated }"></span>
+
+                                                                    <!-- Select avec ngModel -->
+                                                                    <select
+                                                                        class="ml-2 border rounded px-2 py-1 text-sm capitalize focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                                                        (change)="onStatusChange(user,$event)"
+                                                                        [(ngModel)]="user.isValidated" [ngClass]="{
+                    'text-emerald-500 border-emerald-200': user.isValidated, 
+                    'text-red-500 border-red-200': !user.isValidated
+                }">
+                                                                        <option [value]="true" class="text-emerald-500">
+                                                                            Validated</option>
+                                                                        <option [value]="false" class="text-red-500">
+                                                                            Pending</option>
+                                                                    </select>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <!-- Account creation date (used as "Last Online" placeholder) -->
+                                                    <td>
+                                                        <div class="flex items-center">
+                                                            <!-- Format creation date with Angular date pipe -->
+                                                            {{ user.createdAt | date:'dd MMMM yyyy - HH:mm' }}
+                                                        </div>
+                                                    </td>
+                                                    <!-- Action column -->
+                                                    <td class="fix">
+                                                        <div class="text-primary-600 cursor-pointer select-none font-semibold"
+                                                            (click)="edit_user(user?.id)">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                                                fill="currentColor" aria-hidden="true" class="w-5 h-5">
+                                                                <path fill-rule="evenodd"
+                                                                    d="M19 5.5a4.5 4.5 0 01-4.791 4.49c-.873-.055-1.808.128-2.368.8l-6.024 7.23a2.724 2.724 0 11-3.837-3.837L9.21 8.16c.672-.56.855-1.495.8-2.368a4.5 4.5 0 015.873-4.575c.324.105.39.51.15.752L13.34 4.66a.455.455 0 00-.11.494 3.01 3.01 0 001.617 1.617c.17.07.363.02.493-.111l2.692-2.692c.241-.241.647-.174.752.15.14.435.216.9.216 1.382zM4 17a1 1 0 100-2 1 1 0 000 2z"
+                                                                    clip-rule="evenodd"></path>
+                                                            </svg>
+                                                        </div>
+                                                          <div class="text-red-600 cursor-pointer select-none font-semibold"
+                                                          (click)="remove_user(user?.id)"
+                                                          >
+                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="w-5 h-5">
+                                                                            <path fill-rule="evenodd" d="M8.75 1A2.75 2.75 0 006 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 10.23 1.482l.149-.022.841 10.518A2.75 2.75 0 007.596 19h4.807a2.75 2.75 0 002.742-2.53l.841-10.52.149.023a.75.75 0 00.23-1.482A41.03 41.03 0 0014 4.193V3.75A2.75 2.75 0 0011.25 1h-2.5zM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4zM8.58 7.72a.75.75 0 00-1.5.06l.3 7.5a.75.75 0 101.5-.06l-.3-7.5zm4.34.06a.75.75 0 10-1.5-.06l-.3 7.5a.75.75 0 101.5.06l.3-7.5z" clip-rule="evenodd"></path>
+                                                                        </svg>
+                                                        </div>
+                                                    </td>
+                                                   
+                                                  
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <!-- Pagination controls -->
+                                        <div
+                                            class="d-flex justify-content-between align-items-center mt-4 px-2 flex-wrap">
+                                            <!-- Angular Material paginator component -->
+                                            <mat-paginator class="custom-bootstrap-paginator"
+                                                (page)="handlePageEvent($event)" [length]="ListUser.totalElements"
+                                                [pageSize]="ListUser.pageSize" [disabled]="disabled"
+                                                [showFirstLastButtons]="showFirstLastButtons"
+                                                [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : [5, 10, 20, 50]"
+                                                [hidePageSize]="hidePageSize" [pageIndex]="pageIndex"
+                                                aria-label="Select page">
+                                            </mat-paginator>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                    <!-- Content end -->
+                    <!-- Footer start -->
+                    <!-- Footer would go here if present -->
+                    <!-- Footer end -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

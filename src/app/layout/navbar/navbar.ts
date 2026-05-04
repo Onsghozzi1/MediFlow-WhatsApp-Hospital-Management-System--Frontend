@@ -2,15 +2,15 @@ import { Component, effect, inject, OnDestroy, OnInit, signal } from '@angular/c
 import { UiService } from '../../shared/ui-kit/ui.service';
 import { UserStore } from '../../core/auth/user.store';
 import { AuthService } from '../../core/services/auth/auth-service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
 })
 export class Navbar {
-  // ✅ مباشرة من store
   private userStore = inject(UserStore);
   private ui = inject(UiService);
   private authService = inject(AuthService);

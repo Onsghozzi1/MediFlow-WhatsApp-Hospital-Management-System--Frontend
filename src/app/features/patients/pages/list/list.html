@@ -1,0 +1,241 @@
+<!-- App Start-->
+<div id="root">
+    <div class="app-layout-stacked-side flex flex-auto flex-col">
+        <div class="flex flex-auto min-w-0">
+
+            <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full">
+                <div class="h-full flex flex-auto flex-col justify-between">
+
+                    <!-- Content -->
+                    <main class="h-full">
+                        <div class="page-container px-4 sm:px-6 md:px-8 py-4 sm:py-6">
+                            <div class="container mx-auto">
+
+                                <!-- HEADER -->
+                                <div class="mb-4 flex items-center justify-between">
+
+                                    <h3>
+                                        Patient Management
+                                    </h3>
+
+                                    <button class="btn flex items-center gap-2 bg-sky-50 dark:bg-sky-500 
+    dark:bg-opacity-20 hover:bg-sky-100 dark:hover:bg-sky-500 
+    dark:hover:bg-opacity-30 active:bg-sky-200 dark:active:bg-sky-500 
+    dark:active:bg-opacity-40 text-sky-800 mr-2" (click)="go()">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                            aria-hidden="true" class="w-6 h-6">
+                                            <path
+                                                d="M21 6.375c0 2.692-4.03 4.875-9 4.875S3 9.067 3 6.375 7.03 1.5 12 1.5s9 2.183 9 4.875z">
+                                            </path>
+                                            <path
+                                                d="M12 12.75c2.685 0 5.19-.586 7.078-1.609a8.283 8.283 0 001.897-1.384c.016.121.025.244.025.368C21 12.817 16.97 15 12 15s-9-2.183-9-4.875c0-.124.009-.247.025-.368a8.285 8.285 0 001.897 1.384C6.809 12.164 9.315 12.75 12 12.75z">
+                                            </path>
+                                            <path
+                                                d="M12 16.5c2.685 0 5.19-.586 7.078-1.609a8.282 8.282 0 001.897-1.384c.016.121.025.244.025.368 0 2.692-4.03 4.875-9 4.875s-9-2.183-9-4.875c0-.124.009-.247.025-.368a8.284 8.284 0 001.897 1.384C6.809 15.914 9.315 16.5 12 16.5z">
+                                            </path>
+                                            <path
+                                                d="M12 20.25c2.685 0 5.19-.586 7.078-1.609a8.282 8.282 0 001.897-1.384c.016.121.025.244.025.368 0 2.692-4.03 4.875-9 4.875s-9-2.183-9-4.875c0-.124.009-.247.025-.368a8.284 8.284 0 001.897 1.384C6.809 19.664 9.315 20.25 12 20.25z">
+                                            </path>
+                                        </svg>
+
+                                        Add New Patient </button>
+
+
+
+                                </div>
+
+                                <!-- STATS -->
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+
+                                    <!-- CARD 1 -->
+                                    <div style="background-color: azure;"
+                                        class="card rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition bg-white md:even:bg-slate-50 md:odd:bg-white">
+
+                                        <div class="card-body p-4">
+
+                                            <span class="text-xs font-medium text-slate-400 uppercase tracking-wider">
+                                                Total Patients
+                                            </span>
+
+                                            <h3 class="mt-2 text-2xl font-bold text-slate-800 flex items-center gap-2">
+
+                                                @if (!isLoading) {
+                                                <span>{{ (List_patients.totalFemale || 0) + (List_patients.totalMale || 0) }}
+</span>
+                                                } @else {
+                                                <ng-container>
+                                                    <svg class="animate-spin text-sky-600 h-6 w-6" viewBox="0 0 16 16"
+                                                        fill="currentColor">
+                                                        <path d="M8 0c-4.355 0-7.898 3.481-7.998 7.812..."></path>
+                                                    </svg>
+                                                </ng-container>
+                                                }
+
+                                            </h3>
+
+                                        </div>
+                                    </div>
+
+                                    <!-- CARD 2 -->
+                                    <div style="background-color:  #ffe5e5;"
+                                        class="card rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition bg-white md:even:bg-slate-50 md:odd:bg-white">
+
+                                        <div class="card-body p-4">
+
+                                            <span class="text-xs font-medium text-slate-400 uppercase tracking-wider">
+                                                Male
+                                            </span>
+
+                                            <h3 class="mt-2 text-2xl font-bold text-slate-800 flex items-center gap-2">
+
+                                                @if (!isLoading) {
+                                                <span>{{ List_patients.totalMale || 0}}</span>
+                                                } @else {
+                                                <ng-container>
+                                                    <svg class="animate-spin text-sky-600 h-6 w-6" viewBox="0 0 16 16"
+                                                        fill="currentColor">
+                                                        <path d="M8 0c-4.355 0-7.898 3.481-7.998 7.812..."></path>
+                                                    </svg>
+                                                </ng-container>
+                                                }
+
+                                            </h3>
+
+                                        </div>
+                                    </div>
+
+                                    <!-- CARD 3 -->
+                                    <div style="background-color: #fff9db;"
+                                        class="card rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition bg-white md:even:bg-slate-50 md:odd:bg-white">
+
+                                        <div class="card-body p-4">
+
+                                            <span class="text-xs font-medium text-slate-400 uppercase tracking-wider">
+                                                Female
+                                            </span>
+
+                                            <h3 class="mt-2 text-2xl font-bold text-slate-800 flex items-center gap-2">
+
+                                                @if (!isLoading) {
+                                                <span>{{ List_patients.totalFemale || 0}}</span>
+                                                } @else {
+                                                <ng-container>
+                                                    <svg class="animate-spin text-sky-600 h-6 w-6" viewBox="0 0 16 16"
+                                                        fill="currentColor">
+                                                        <path d="M8 0c-4.355 0-7.898 3.481-7.998 7.812..."></path>
+                                                    </svg>
+                                                </ng-container>
+                                                }
+
+                                            </h3>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!-- TABLE -->
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="overflow-x-auto">
+                                            <table class="table-default table-hover min-w-full">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Medical Record ID</th>
+                                                        <th>Full Name</th>
+                                                        <th>Age</th>
+                                                        <th>Gender</th>
+                                                        <th>Phone</th>
+                                                        <th>Address</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @for (patient of List_patients.content; track patient.id) {
+                                                    <tr [ngClass]="{
+    'row-female': patient.gender === 'FEMALE',
+    'row-male': patient.gender === 'MALE'
+  }">
+                                                        <!-- medical_Record_ID -->
+                                                        <td class="font-semibold">
+                                                            {{ patient.medical_Record_ID?? 'NOT FOUND' }}
+                                                        </td>
+                                                        <!-- Name -->
+                                                        <td>
+                                                            {{ patient.fullName ?? 'NOT FOUND'}}
+                                                        </td>
+                                                        <!-- Age -->
+                                                        <td>{{ patient.age?? 'NOT FOUND' }}</td>
+                                                        <!-- Gender -->
+                                                        <td>{{ patient.gender?? 'NOT FOUND' }}</td>
+                                                        <!-- Phone -->
+                                                        <td>{{ patient.phone ?? 'NOT FOUND'}}</td>
+                                                        <!-- Address -->
+                                                        <td>{{ patient.address?? 'NOT FOUND' }}</td>
+                                                        <!-- Actions -->
+                                                        <!-- Action column -->
+                                                        <td class="fix">
+                                                            <div (click)="edit_patient(patient?.id)"
+                                                                class="text-primary-600 cursor-pointer select-none font-semibold">
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                    viewBox="0 0 20 20" fill="currentColor"
+                                                                    aria-hidden="true" class="w-5 h-5">
+                                                                    <path fill-rule="evenodd"
+                                                                        d="M19 5.5a4.5 4.5 0 01-4.791 4.49c-.873-.055-1.808.128-2.368.8l-6.024 7.23a2.724 2.724 0 11-3.837-3.837L9.21 8.16c.672-.56.855-1.495.8-2.368a4.5 4.5 0 015.873-4.575c.324.105.39.51.15.752L13.34 4.66a.455.455 0 00-.11.494 3.01 3.01 0 001.617 1.617c.17.07.363.02.493-.111l2.692-2.692c.241-.241.647-.174.752.15.14.435.216.9.216 1.382zM4 17a1 1 0 100-2 1 1 0 000 2z"
+                                                                        clip-rule="evenodd"></path>
+                                                                </svg>
+                                                            </div>
+                                                            <div (click)="delete_patient(patient?.id)"
+                                                                class="text-red-600 cursor-pointer select-none font-semibold">
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                    viewBox="0 0 20 20" fill="currentColor"
+                                                                    aria-hidden="true" class="w-5 h-5">
+                                                                    <path fill-rule="evenodd"
+                                                                        d="M8.75 1A2.75 2.75 0 006 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 10.23 1.482l.149-.022.841 10.518A2.75 2.75 0 007.596 19h4.807a2.75 2.75 0 002.742-2.53l.841-10.52.149.023a.75.75 0 00.23-1.482A41.03 41.03 0 0014 4.193V3.75A2.75 2.75 0 0011.25 1h-2.5zM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4zM8.58 7.72a.75.75 0 00-1.5.06l.3 7.5a.75.75 0 101.5-.06l-.3-7.5zm4.34.06a.75.75 0 10-1.5-.06l-.3 7.5a.75.75 0 101.5.06l.3-7.5z"
+                                                                        clip-rule="evenodd"></path>
+                                                                </svg>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    }
+
+                                                    @empty {
+                                                    <tr>
+                                                        <td colspan="7" class="text-center text-gray-500 py-4">
+                                                            No patients found
+                                                        </td>
+                                                    </tr>
+                                                    }
+
+                                                </tbody>
+
+                                            </table>
+
+                                            <!-- PAGINATOR -->
+                                            <mat-paginator [length]="List_patients.totalElements"
+                                                [pageSize]="List_patients.pageSize" [pageIndex]="pageIndex"
+                                                [pageSizeOptions]="[5,10,20,50]" (page)="handlePageEvent($event)"
+                                                showFirstLastButtons>
+                                            </mat-paginator>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </main>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- LOADING TEMPLATE -->
+<ng-template #loadingTpl>
+    <span class="animate-pulse">Loading...</span>
+</ng-template>
