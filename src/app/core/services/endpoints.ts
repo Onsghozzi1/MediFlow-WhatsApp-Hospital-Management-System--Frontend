@@ -6,14 +6,17 @@ export const API_ENDPOINTS = {
   },
   PATIENTS: {
     BASE: 'Patient',
-    GETALL:'/PatientPagination',
-    POST:'/add-patient',
+    GETALL: '/PatientPagination',
+    POST: '/add-patient',
     PUT: '/edit-patient',
-    DELETE:'/delete'
+    DELETE: '/delete',
+    GETAPPO:'/get_patients'
   },
   APPOINTMENTS: {
     BASE: 'Appointment',
-    GETALL:'/AppointmentPagination',
-    POST:'/add-appointment'
+    GETALL: '/AppointmentPagination',
+    POST: '/add-appointment',
+    PUT: '/edit-appointment',
+    DELETE: '/delete'
   }
 };

@@ -39,5 +39,10 @@ export class PatientService {
       {}
     );
   }
+GetAllPatients(): Observable<any> {
+  return this.apiService.get(
+    `${API_ENDPOINTS.PATIENTS.BASE}${API_ENDPOINTS.PATIENTS.GETAPPO}`
+  );
+}
 
 }

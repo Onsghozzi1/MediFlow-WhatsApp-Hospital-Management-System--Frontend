@@ -1,0 +1,4 @@
+.row-cancelled { background: #fee2e2; }
+.row-pending { background: #fef9c3; }
+.row-done { background: #dcfce7; }
+.row-confirmed { background: #dbeafe; }

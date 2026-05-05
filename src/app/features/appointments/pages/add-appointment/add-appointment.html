@@ -1,0 +1,245 @@
+<!-- add-appointment.component.html -->
+
+<div id="root">
+    <div class="app-layout-stacked-side flex flex-auto flex-col">
+        <div class="flex flex-auto min-w-0">
+            <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full">
+                <div class="h-full flex flex-auto flex-col justify-between">
+
+                    <!-- Content -->
+                    <main class="h-full">
+                        <div class="page-container px-4 sm:px-6 md:px-8 py-4 sm:py-6">
+                            <div class="container mx-auto max-w-4xl">
+
+                                <!-- HEADER with Back Button -->
+                                <div class="mb-6 flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <button (click)="goBack()"
+                                            class="btn p-2 rounded-lg hover:bg-gray-100 transition-colors">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                                            </svg>
+                                        </button>
+                                        <h3 class="text-2xl font-bold text-gray-800">
+                                            {{ isEdit ? 'Edit Appointment' : 'Add New Appointment' }}
+                                        </h3>
+                                    </div>
+
+                                    <!-- Quick Stats Card -->
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                                        <div class="card bg-sky-50">
+                                            <div class="card-body p-4">
+                                                <div class="flex items-center gap-3">
+                                                    <div class="bg-sky-100 p-2 rounded-full">
+                                                        <svg class="w-5 h-5 text-sky-600" fill="none"
+                                                            stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                        </svg>
+                                                    </div>
+                                                    <div>
+                                                        <div class="text-sm text-gray-600">Today's Appointments</div>
+                                                        <div class="text-2xl font-bold text-gray-800">{{
+                                                            todayAppointmentsCount }}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card bg-green-50">
+                                            <div class="card-body p-4">
+                                                <div class="flex items-center gap-3">
+                                                    <div class="bg-green-100 p-2 rounded-full">
+                                                        <svg class="w-5 h-5 text-green-600" fill="none"
+                                                            stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                        </svg>
+                                                    </div>
+                                                    <div>
+                                                        <div class="text-sm text-gray-600">Available Slots Today</div>
+                                                        <div class="text-2xl font-bold text-gray-800">{{
+                                                            availableSlotsToday }}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card bg-purple-50">
+                                            <div class="card-body p-4">
+                                                <div class="flex items-center gap-3">
+                                                    <div class="bg-purple-100 p-2 rounded-full">
+                                                        <svg class="w-5 h-5 text-purple-600" fill="none"
+                                                            stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                        </svg>
+                                                    </div>
+                                                    <div>
+                                                        <div class="text-sm text-gray-600">Average Wait Time</div>
+                                                        <div class="text-2xl font-bold text-gray-800">{{ avgWaitTime }}
+                                                            min</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Form Card -->
+                                <div class="card rounded-2xl shadow-lg">
+                                    <div class="card-body p-6">
+                                        <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()">
+                                            <!-- Two Column Layout -->
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+
+                                                <!-- Column 1: Patient -->
+                                                <div class="w-full min-w-0">
+                                                    <mat-form-field class="w-full">
+                                                        <input type="text" placeholder="Select Patient" matInput
+                                                            class="w-full" [formControl]="myControl"
+                                                            [matAutocomplete]="auto">
+
+                                                        <mat-autocomplete #auto="matAutocomplete"
+                                                            [displayWith]="displayPatient"
+                                                            (optionSelected)="onPatientSelected($event.option.value)">
+                                                            <mat-option *ngFor="let option of filteredPatients$ | async"
+                                                                [value]="option">
+                                                                {{ option.fullName }}
+                                                            </mat-option>
+                                                        </mat-autocomplete>
+                                                    </mat-form-field>
+                                                </div>
+
+                                                <!-- Column 2: Date -->
+                                                <div class="w-full min-w-0">
+                                                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                                                        Appointment Date <span class="text-red-500">*</span>
+                                                    </label>
+
+                                                    <input type="date" formControlName="appointmentDate"
+                                                        class="form-input w-full rounded-lg border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500">
+                                                </div>
+
+                                                <!-- Appointment Type -->
+                                                <div class="w-full min-w-0">
+                                                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                                                        Appointment Type <span class="text-red-500">*</span>
+                                                    </label>
+
+                                                    <select formControlName="appointmentType" class="input w-full">
+                                                        <option [value]="null" selected>Choose your appointment type
+                                                        </option>
+
+                                                        <option [value]="AppointmentType.CONSULTATION">Consultation
+                                                        </option>
+                                                        <option [value]="AppointmentType.FOLLOW_UP">Follow-up</option>
+                                                        <option [value]="AppointmentType.EMERGENCY">Emergency</option>
+                                                        <option [value]="AppointmentType.ONLINE">Online</option>
+                                                    </select>
+                                                </div>
+ <div class="w-full min-w-0">
+                                                <!-- Duration / Status / Priority -->
+                                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full md:col-span-2">
+
+
+                                                    <!-- Status -->
+                                                    <div class="min-w-0">
+                                                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                                                            Status
+                                                        </label>
+
+                                                        <select formControlName="status" class="input w-full"
+                                                         [ngClass]="getStatusClass(appointmentForm.value.status)">
+                                                            <option [value]="AppointmentStatus.PENDING">Pending</option>
+                                                            <option [value]="AppointmentStatus.CONFIRMED">Confirmed
+                                                            </option>
+                                                            <option [value]="AppointmentStatus.DONE">Done</option>
+                                                            <option [value]="AppointmentStatus.CANCELLED">Cancelled
+                                                            </option>
+                                                        </select>
+                                                    </div>
+
+                                                    <!-- Priority -->
+                                                    <div class="min-w-0">
+                                                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                                                            Priority
+                                                        </label>
+
+                                                        <select formControlName="priority" 
+                                                         [ngClass]="getPriorityClass(appointmentForm.get('priority')?.value)"
+                                                         class="input w-full">
+                                                            <option [value]="Priority.LOW">Low</option>
+                                                            <option [value]="Priority.NORMAL">Normal</option>
+                                                            <option [value]="Priority.HIGH">High</option>
+                                                            <option [value]="Priority.URGENT">Urgent</option>
+                                                        </select>
+                                                    </div>
+
+                                                </div></div>
+
+                                                <!-- Reason + Notes -->
+                                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full md:col-span-2">
+
+                                                    <!-- Reason -->
+                                                    <div class="min-w-0">
+                                                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                                                            Reason for Appointment
+                                                        </label>
+
+                                                        <textarea formControlName="reason" rows="3"
+                                                            placeholder="Describe the reason for appointment..."
+                                                            class="input input-textarea w-full"></textarea>
+                                                    </div>
+
+                                                    <!-- Notes -->
+                                                    <div class="min-w-0">
+                                                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                                                            Additional Notes
+                                                        </label>
+
+                                                        <textarea formControlName="notes" rows="3"
+                                                            placeholder="Any additional information..."
+                                                            class="input input-textarea w-full"></textarea>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <!-- Form Actions -->
+                                            <div class="flex justify-end gap-3 mt-6 pt-4 border-t">
+                                                <button type="button" (click)="goBack()" class="btn btn-default">
+                                                    Cancel
+                                                </button>
+                                                <button type="submit"
+                                                    [disabled]="appointmentForm.invalid || isSubmitting"
+                                                    class="btn bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 text-white mr-2">
+                                                    @if (isSubmitting) {
+                                                    <svg class="animate-spin h-4 w-4 inline mr-2" viewBox="0 0 24 24">
+                                                        <circle class="opacity-25" cx="12" cy="12" r="10"
+                                                            stroke="currentColor" stroke-width="4" fill="none" />
+                                                        <path class="opacity-75" fill="currentColor"
+                                                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                                                    </svg>
+                                                    }
+                                                    {{ isEditMode ? 'Update Appointment' : 'Schedule Appointment' }}
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

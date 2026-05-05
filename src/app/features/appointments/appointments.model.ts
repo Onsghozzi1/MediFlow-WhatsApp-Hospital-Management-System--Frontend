@@ -1,0 +1,51 @@
+
+export interface appointment_filter {
+
+}
+export interface appointment_List {
+  content: any;
+  pageNo: number;
+  pageSize: number;
+  totalElements: number;
+  totalPages: number;
+  last: boolean;
+}
+export enum AppointmentStatus {
+  PENDING = 'PENDING',
+  CONFIRMED = 'CONFIRMED',
+  DONE = 'DONE',
+  CANCELLED = 'CANCELLED'
+}
+export enum AppointmentType {
+  CONSULTATION = 'CONSULTATION',
+  FOLLOW_UP = 'FOLLOW_UP',
+  EMERGENCY = 'EMERGENCY',
+  ONLINE = 'ONLINE'
+}
+export enum Priority {
+  LOW = 'LOW',
+  NORMAL = 'NORMAL',
+  HIGH = 'HIGH',
+  URGENT = 'URGENT'
+}
+export interface Patient {
+  patientId: number;
+  fullName: string;
+  medical_Record_ID: string;
+  phone: string;
+  email?: string;
+}
+
+export interface Doctor {
+  id: number;
+  name: string;
+  specialty: string;
+  availableSlots?: TimeSlot[];
+}
+
+export interface TimeSlot {
+  startTime: string;
+  endTime: string;
+  duration: number;
+  available: boolean;
+}

@@ -208,17 +208,17 @@
                         </div>
                     </div>
                     <ul class="dropdown-menu">
-                        <li class="menu-item "   >
+                        <li class="menu-item ">
                             <div class="menu-item-toggle">
                                 <span class="menu-item-text">Dashboard</span>
                             </div>
-                       
+
                         </li>
                         <li class="menu-item " [routerLink]="['patients', 'list']">
                             <div class="menu-item-toggle">
                                 <span class="menu-item-text">Patient Lists</span>
                             </div>
-                         
+
                         </li>
                         <li class="menu-item dropdown-submenu-item">
                             <div class="menu-item-toggle">
@@ -487,12 +487,13 @@
                     <ul class="dropdown-menu">
                         <li data-menu-item="simple-welcome" class="menu-item menu-item-single">
                             <a class="menu-item-link" href="simple-welcome.html">
-                                <span class="menu-item-text">Welcome</span>
+                                <span class="menu-item-text">Dashboard</span>
                             </a>
                         </li>
                         <li data-menu-item="simple-access-denied" class="menu-item menu-item-single">
-                            <a class="menu-item-link" href="simple-access-denied.html">
-                                <span class="menu-item-text">Access Denied</span>
+                            <a class="menu-item-link" [routerLink]="['appointments', 'list']">
+                                <span class="menu-item-text">Appointments List
+                                </span>
                             </a>
                         </li>
                     </ul>
@@ -529,11 +530,11 @@
                         </div>
                     </div>
                     <ul class="dropdown-menu">
-                        <li class="menu-item " [routerLink]="['/users', 'users_list']"> 
+                        <li class="menu-item " [routerLink]="['/users', 'users_list']">
                             <div class="menu-item-toggle">
                                 <span class="menu-item-text">List users</span>
                             </div>
-                    
+
                         </li>
                         <li class="menu-item dropdown-submenu-item">
                             <div class="menu-item-toggle">
