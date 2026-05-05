@@ -9,6 +9,10 @@ export interface appointment_List {
   totalElements: number;
   totalPages: number;
   last: boolean;
+  total_Appointments:any;
+  completed:any;
+  upcoming:any;
+  today_Appointments:any
 }
 export enum AppointmentStatus {
   PENDING = 'PENDING',

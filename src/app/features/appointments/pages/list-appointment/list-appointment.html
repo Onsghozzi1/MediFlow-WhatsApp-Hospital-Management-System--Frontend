@@ -47,8 +47,20 @@
                                                 Total Appointments
                                             </span>
 
-                                            <h3 class="mt-2 text-2xl font-bold text-slate-800">
-                                                {{ ( 0) + ( 0) }}
+                                            <h3 class="mt-2 text-2xl font-bold text-slate-800 flex items-center gap-2">
+
+                                                @if (!isLoading) {
+                                                <span> {{List_appointments.total_Appointments }}
+                                                </span>
+                                                } @else {
+                                                <ng-container>
+                                                    <svg class="animate-spin text-sky-600 h-6 w-6" viewBox="0 0 16 16"
+                                                        fill="currentColor">
+                                                        <path d="M8 0c-4.355 0-7.898 3.481-7.998 7.812..."></path>
+                                                    </svg>
+                                                </ng-container>
+                                                }
+
                                             </h3>
 
                                         </div>
@@ -64,10 +76,21 @@
                                                 Today's Appointments
                                             </span>
 
-                                            <h3 class="mt-2 text-2xl font-bold text-slate-800">
-                                                {{0 }}
-                                            </h3>
+                                            <h3 class="mt-2 text-2xl font-bold text-slate-800 flex items-center gap-2">
 
+                                                @if (!isLoading) {
+                                                <span> {{List_appointments.today_Appointments }}
+                                                </span>
+                                                } @else {
+                                                <ng-container>
+                                                    <svg class="animate-spin text-sky-600 h-6 w-6" viewBox="0 0 16 16"
+                                                        fill="currentColor">
+                                                        <path d="M8 0c-4.355 0-7.898 3.481-7.998 7.812..."></path>
+                                                    </svg>
+                                                </ng-container>
+                                                }
+
+                                            </h3>
                                         </div>
                                     </div>
 
@@ -80,6 +103,22 @@
                                             <span class="text-xs font-medium text-slate-400 uppercase tracking-wider">
                                                 Upcoming
                                             </span>
+                                            <h3 class="mt-2 text-2xl font-bold text-slate-800 flex items-center gap-2">
+
+                                                @if (!isLoading) {
+                                                <span> {{List_appointments.upcoming }}
+                                                </span>
+                                                } @else {
+                                                <ng-container>
+                                                    <svg class="animate-spin text-sky-600 h-6 w-6" viewBox="0 0 16 16"
+                                                        fill="currentColor">
+                                                        <path d="M8 0c-4.355 0-7.898 3.481-7.998 7.812..."></path>
+                                                    </svg>
+                                                </ng-container>
+                                                }
+
+                                            </h3>
+
                                         </div>
                                     </div>
                                     <!-- CARD 4 - Completed -->
@@ -91,6 +130,24 @@
                                             <span class="text-xs font-medium text-slate-400 uppercase tracking-wider">
                                                 Completed
                                             </span>
+
+
+
+                                            <h3 class="mt-2 text-2xl font-bold text-slate-800 flex items-center gap-2">
+
+                                                @if (!isLoading) {
+                                                <span> {{List_appointments.completed }}
+                                                </span>
+                                                } @else {
+                                                <ng-container>
+                                                    <svg class="animate-spin text-sky-600 h-6 w-6" viewBox="0 0 16 16"
+                                                        fill="currentColor">
+                                                        <path d="M8 0c-4.355 0-7.898 3.481-7.998 7.812..."></path>
+                                                    </svg>
+                                                </ng-container>
+                                                }
+
+                                            </h3>
                                         </div>
                                     </div>
                                 </div>
@@ -121,7 +178,7 @@
                                                     let i = $index
                                                     ){
 
-                                                    <tr  [ngClass]="{
+                                                    <tr [ngClass]="{
   'row-cancelled': appointment.status?.trim().toUpperCase() === 'CANCELLED',
   'row-pending': appointment.status?.trim().toUpperCase() === 'PENDING',
   'row-done': appointment.status?.trim().toUpperCase() === 'DONE',
@@ -142,9 +199,9 @@
                                                         <td>
                                                             {{ appointment.appointmentDate ?? 'Not found' }}
                                                         </td>
-                                                          <!-- Priority -->
+                                                        <!-- Priority -->
                                                         <td>
-                                                            {{ appointment.priority ?? 'Not found' }} 
+                                                            {{ appointment.priority ?? 'Not found' }}
                                                         </td>
 
                                                         <!-- Type -->
@@ -153,12 +210,12 @@
                                                         </td>
 
                                                         <!-- Status -->
-                                                        <td>
+                                                        <td class="px-3 py-1  text-white bg-green-500">
                                                             {{ appointment.status ?? 'Not found' }}
                                                         </td>
 
                                                         <td class="fix">
-                                                            <div  (click)="edit_appointment(appointment.id)"
+                                                            <div (click)="edit_appointment(appointment.id)"
                                                                 class="text-primary-600 cursor-pointer select-none font-semibold">
                                                                 <svg xmlns="http://www.w3.org/2000/svg"
                                                                     viewBox="0 0 20 20" fill="currentColor"
@@ -178,6 +235,18 @@
                                                                         clip-rule="evenodd"></path>
                                                                 </svg>
                                                             </div>
+                                                            <div
+                                                                class="text-indigo-600 cursor-pointer select-none font-semibold">
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                    viewBox="0 0 20 20" fill="currentColor"
+                                                                    aria-hidden="true" class="w-5 h-5">
+                                                                    <path fill-rule="evenodd"
+                                                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z"
+                                                                        clip-rule="evenodd"></path>
+                                                                </svg>
+                                                            </div>
+
+
                                                         </td>
 
                                                     </tr>

@@ -26,7 +26,11 @@ export class ListAppointment implements OnInit {
     pageSize: 10,
     totalElements: 0,
     totalPages: 0,
-    last: true
+    last: true,
+    total_Appointments: 0,
+    completed:0,
+    upcoming:0,
+    today_Appointments:0
   };
 
 
@@ -55,7 +59,11 @@ export class ListAppointment implements OnInit {
           pageSize: data.pageSize,
           totalElements: data.totalElements,
           totalPages: data.totalPages,
-          last: data.last
+          last: data.last,
+          total_Appointments:data.total_Appointments,
+          completed:data.completed,
+          upcoming:data.upcoming,
+          today_Appointments:data.today_Appointments
         };
 
         this.isLoading = false;
