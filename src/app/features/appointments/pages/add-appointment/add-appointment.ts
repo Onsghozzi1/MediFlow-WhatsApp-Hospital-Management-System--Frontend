@@ -34,15 +34,15 @@ export class AddAppointment {
   user = this.userStore.user$;
   private destroyRef = inject(DestroyRef);
 
-  myControl = new FormControl();
+  myControl = new FormControl('');
   options: string[] = ['One', 'Two', 'Three'];
   appointmentForm!: FormGroup;
   isEditMode = false;
-  appointmentId: number | null = null;
+  appointmentId: any;
   isSubmitting = false;
 
   // Data lists
-  patientsList: Patient[] = [];
+  patientsList: any[] = [];
   filteredPatients: Patient[] = [];
   doctorsList: Doctor[] = [];
   availableTimeSlots: TimeSlot[] = [];
@@ -57,15 +57,40 @@ export class AddAppointment {
   ) { }
 
   ngOnInit() {
+    //patientId
+
     this.initForm();
     this.loadAppointmentIfEdit()
     // Load patients
-    this.patientService.GetAllPatients().subscribe(data => {
+    this.patientService.GetAllPatients(this.appointmentId).subscribe(data => {
       this.patientsList = data;
       this.filteredPatients$ = this.searchPatientControl.valueChanges.pipe(
         startWith(''),
         map(value => this.filterPatients(value))
       );
+
+       // ✅ NOW read route param
+  this.route.params.subscribe(params => {
+
+    const id = Number(params['patientid']); // ✅ correct name
+
+    console.log('patientId from route:', id);
+
+    const patient = this.patientsList.find(
+      p => p.patientId === id
+    );
+
+    console.log('found patient:', patient);
+
+    if (patient) {
+      this.appointmentForm.patchValue({
+        patientId: patient.patientId
+      });
+      // ✅ IMPORTANT: pass OBJECT
+      this.myControl.setValue(patient);
+      this.myControl.disable
+    }
+  });
     });
 
     // 👇 Listen for selection
@@ -90,49 +115,84 @@ export class AddAppointment {
       notes: ['']
     });
   }
-  private loadAppointmentIfEdit(): void {
-    this.route.params.pipe(
-      map(params => Number(params['id'])),
-      tap(id => this.appointmentId = isNaN(id) ? null : id),
-      filter(id => !!id && !isNaN(id)),
+private loadAppointmentIfEdit(): void {
 
-      switchMap(id =>
+  this.route.params.pipe(
 
-        this.appointment_service.GetAppointmentList(0, 1, { id })
-      ),
+    map(params => Number(params['id'])),
+    tap(id => {
+      if(id){
+  this.appointmentId = id; // ✅ THIS IS THE FIX
 
-      takeUntilDestroyed(this.destroyRef)
-    ).subscribe({
-      next: (response: any) => {
+      }else {
+        this.appointmentId=null
+      }
+  this.loadPatients(this.appointmentId)
+  console.log('SET appointmentId:', this.appointmentId);
+}),
 
-        const appointment = response?.content?.[0]; // 🔥 FIX ICI
+    filter(id => !!id && !isNaN(id)),
 
-        if (!appointment) return;
+    switchMap(id =>
+      this.appointment_service.GetAppointmentList(0, 1, { id })
+    ),
 
-        this.appointmentForm.patchValue({
+    takeUntilDestroyed(this.destroyRef)
 
-          patientId: appointment.patientId,
+  ).subscribe({
+    next: (response: any) => {
 
-          appointmentDate: appointment.appointmentDate,
-          appointmentType: appointment.appointmentType,
+      // ✅ IMPORTANT
+      const appointment = response?.content?.[0];
 
-          status: appointment.status,
-          priority: appointment.priority,
+      console.log("appointment:", appointment);
 
-          reason: appointment.reason,
-          notes: appointment.notes
-        });
+      if (!appointment) return;
 
-        // autocomplete display (important fix)
-        this.myControl.setValue({
-          patientId: appointment.patientId,
-          fullName: appointment.patient_name
-        });
-      },
+      // ✅ patch form
+      this.appointmentForm.patchValue({
+        patientId: appointment.patientId,
+        appointmentDate: appointment.appointmentDate,
+        appointmentType: appointment.appointmentType,
+        status: appointment.status,
+        priority: appointment.priority,
+        reason: appointment.reason,
+        notes: appointment.notes
+      });
+ const patient = this.patientsList.find(
+      p => p.patientId === appointment.patientId
+    );
 
-      error: err => console.error('Load appointment error:', err)
+    console.log('found patient:', patient);
+
+    if (patient) {
+      this.appointmentForm.patchValue({
+        patientId: patient.patientId
+      });
+      // ✅ IMPORTANT: pass OBJECT
+      this.myControl.setValue(patient);
+      this.myControl.disable
+    }
+    },
+
+    error: err => console.error('Load appointment error:', err)
+  });
+}
+loadPatients(appointmentId:any) {
+
+  this.patientService.GetAllPatients(appointmentId)
+    .subscribe(data => {
+
+      this.patientsList = data;
+
+      this.filteredPatients$ = this.searchPatientControl.valueChanges.pipe(
+        startWith(''),
+        map(value => this.filterPatients(value))
+      );
+
     });
-  }
+}
+
   // 👇 Display patient name in input
   displayPatient(patient: Patient): string {
     return patient ? patient.fullName : '';
@@ -147,11 +207,13 @@ export class AddAppointment {
     );
   }
 
-  onPatientSelected(patient: any) {
-    this.appointmentForm.patchValue({
-      patientId: patient.patientId
-    });
-  }
+onPatientSelected(patient: Patient) {
+  this.appointmentForm.patchValue({
+    patientId: patient.patientId
+  });
+
+  this.searchPatientControl.setValue(patient.fullName);
+}
   goBack() {
     this.router.navigate(['/appointments/list']);
   }

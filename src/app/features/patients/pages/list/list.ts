@@ -76,6 +76,10 @@ export class List implements OnInit {
   edit_patient(patientId: Number) {
     this.route.navigate(['patients/edit', patientId]);
   }
+  gotoAppointment(patientId: Number) {
+    this.route.navigate(['appointments/edit-by-patient', patientId]);
+  }
+  
 
   delete_patient(patient_id: number) {
   Swal.fire({

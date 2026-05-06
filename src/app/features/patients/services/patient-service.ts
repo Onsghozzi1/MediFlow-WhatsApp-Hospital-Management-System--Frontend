@@ -39,9 +39,18 @@ export class PatientService {
       {}
     );
   }
-GetAllPatients(): Observable<any> {
+
+GetAllPatients(appointmentId?: number): Observable<any> {
+
+  let params: any = {};
+
+  if (appointmentId != null) {
+    params.appointmentId = appointmentId;
+  }
+
   return this.apiService.get(
-    `${API_ENDPOINTS.PATIENTS.BASE}${API_ENDPOINTS.PATIENTS.GETAPPO}`
+    `${API_ENDPOINTS.PATIENTS.BASE}${API_ENDPOINTS.PATIENTS.GETAPPO}`,
+    params
   );
 }
 

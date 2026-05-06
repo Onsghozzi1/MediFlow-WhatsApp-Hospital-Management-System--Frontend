@@ -61,8 +61,9 @@
                                             <h3 class="mt-2 text-2xl font-bold text-slate-800 flex items-center gap-2">
 
                                                 @if (!isLoading) {
-                                                <span>{{ (List_patients.totalFemale || 0) + (List_patients.totalMale || 0) }}
-</span>
+                                                <span>{{ (List_patients.totalFemale || 0) + (List_patients.totalMale ||
+                                                    0) }}
+                                                </span>
                                                 } @else {
                                                 <ng-container>
                                                     <svg class="animate-spin text-sky-600 h-6 w-6" viewBox="0 0 16 16"
@@ -156,7 +157,8 @@
                                                     <tr [ngClass]="{
     'row-female': patient.gender === 'FEMALE',
     'row-male': patient.gender === 'MALE'
-  }">
+  }"   [class.opacity-50]="patient.patient_activated"
+  [class.pointer-events-none]="patient.patient_activated">
                                                         <!-- medical_Record_ID -->
                                                         <td class="font-semibold">
                                                             {{ patient.medical_Record_ID?? 'NOT FOUND' }}
@@ -186,7 +188,7 @@
                                                                         clip-rule="evenodd"></path>
                                                                 </svg>
                                                             </div>
-                                                            <div (click)="delete_patient(patient?.id)"
+                                                            <div (click)="delete_patient(patient?.id)" 
                                                                 class="text-red-600 cursor-pointer select-none font-semibold">
                                                                 <svg xmlns="http://www.w3.org/2000/svg"
                                                                     viewBox="0 0 20 20" fill="currentColor"
@@ -196,6 +198,18 @@
                                                                         clip-rule="evenodd"></path>
                                                                 </svg>
                                                             </div>
+
+                                                            <div  (click)="!patient.patient_activated && gotoAppointment(patient?.id)"
+                                                                class="text-red-600 cursor-pointer select-none font-semibold">
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                    viewBox="0 0 20 20" fill="currentColor"
+                                                                    aria-hidden="true" class="w-5 h-5">
+                                                                    <path fill-rule="evenodd"
+                                                                        d="M12.207 2.232a.75.75 0 00.025 1.06l4.146 3.958H6.375a5.375 5.375 0 000 10.75H9.25a.75.75 0 000-1.5H6.375a3.875 3.875 0 010-7.75h10.003l-4.146 3.957a.75.75 0 001.036 1.085l5.5-5.25a.75.75 0 000-1.085l-5.5-5.25a.75.75 0 00-1.06.025z"
+                                                                        clip-rule="evenodd"></path>
+                                                                </svg>
+                                                            </div>
+
                                                         </td>
                                                     </tr>
                                                     }
