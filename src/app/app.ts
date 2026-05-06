@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { ListUsers } from './features/users/pages/list-users/list-users';
+import { CalendarPreviousViewDirective, CalendarTodayDirective, CalendarNextViewDirective, CalendarMonthViewComponent, CalendarWeekViewComponent, CalendarDayViewComponent, CalendarDatePipe, DateAdapter, provideCalendar } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +20,11 @@ import { ListUsers } from './features/users/pages/list-users/list-users';
     {
     provide: MatPaginatorIntl,
     useClass: MatPaginatorIntl // Tell Angular which class to instantiate
-    }
+    },
+    provideCalendar({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    })
   ],
   templateUrl: './app.html',
   styleUrl: './app.css'

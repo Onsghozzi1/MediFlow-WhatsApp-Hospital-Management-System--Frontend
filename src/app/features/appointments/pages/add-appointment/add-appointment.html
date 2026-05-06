@@ -117,13 +117,20 @@
                                                 </div>
 
                                                 <!-- Column 2: Date -->
-                                                <div class="w-full min-w-0">
-                                                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                                                        Appointment Date <span class="text-red-500">*</span>
-                                                    </label>
+<div class="w-full min-w-0">
+  <mat-form-field appearance="outline" class="w-full">
 
-                                                    <input type="date" formControlName="appointmentDate"
-                                                        class="form-input w-full rounded-lg border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500">
+    <mat-label>Appointment Date & Time</mat-label>
+
+    <input
+      matInput
+      type="datetime-local"
+      formControlName="appointmentDate"
+    />
+
+  </mat-form-field>
+
+
                                                 </div>
 
                                                 <!-- Appointment Type -->
@@ -143,45 +150,48 @@
                                                         <option [value]="AppointmentType.ONLINE">Online</option>
                                                     </select>
                                                 </div>
- <div class="w-full min-w-0">
-                                                <!-- Duration / Status / Priority -->
-                                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full md:col-span-2">
+                                                <div class="w-full min-w-0">
+                                                    <!-- Duration / Status / Priority -->
+                                                    <div
+                                                        class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full md:col-span-2">
 
 
-                                                    <!-- Status -->
-                                                    <div class="min-w-0">
-                                                        <label class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Status
-                                                        </label>
+                                                        <!-- Status -->
+                                                        <div class="min-w-0">
+                                                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                                                Status
+                                                            </label>
 
-                                                        <select formControlName="status" class="input w-full"
-                                                         [ngClass]="getStatusClass(appointmentForm.value.status)">
-                                                            <option [value]="AppointmentStatus.PENDING">Pending</option>
-                                                            <option [value]="AppointmentStatus.CONFIRMED">Confirmed
-                                                            </option>
-                                                            <option [value]="AppointmentStatus.DONE">Done</option>
-                                                            <option [value]="AppointmentStatus.CANCELLED">Cancelled
-                                                            </option>
-                                                        </select>
+                                                            <select formControlName="status" class="input w-full"
+                                                                [ngClass]="getStatusClass(appointmentForm.value.status)">
+                                                                <option [value]="AppointmentStatus.PENDING">Pending
+                                                                </option>
+                                                                <option [value]="AppointmentStatus.CONFIRMED">Confirmed
+                                                                </option>
+                                                                <option [value]="AppointmentStatus.DONE">Done</option>
+                                                                <option [value]="AppointmentStatus.CANCELLED">Cancelled
+                                                                </option>
+                                                            </select>
+                                                        </div>
+
+                                                        <!-- Priority -->
+                                                        <div class="min-w-0">
+                                                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                                                Priority
+                                                            </label>
+
+                                                            <select formControlName="priority"
+                                                                [ngClass]="getPriorityClass(appointmentForm.get('priority')?.value)"
+                                                                class="input w-full">
+                                                                <option [value]="Priority.LOW">Low</option>
+                                                                <option [value]="Priority.NORMAL">Normal</option>
+                                                                <option [value]="Priority.HIGH">High</option>
+                                                                <option [value]="Priority.URGENT">Urgent</option>
+                                                            </select>
+                                                        </div>
+
                                                     </div>
-
-                                                    <!-- Priority -->
-                                                    <div class="min-w-0">
-                                                        <label class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Priority
-                                                        </label>
-
-                                                        <select formControlName="priority" 
-                                                         [ngClass]="getPriorityClass(appointmentForm.get('priority')?.value)"
-                                                         class="input w-full">
-                                                            <option [value]="Priority.LOW">Low</option>
-                                                            <option [value]="Priority.NORMAL">Normal</option>
-                                                            <option [value]="Priority.HIGH">High</option>
-                                                            <option [value]="Priority.URGENT">Urgent</option>
-                                                        </select>
-                                                    </div>
-
-                                                </div></div>
+                                                </div>
 
                                                 <!-- Reason + Notes -->
                                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full md:col-span-2">

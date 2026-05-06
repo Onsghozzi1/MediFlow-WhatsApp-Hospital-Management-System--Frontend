@@ -17,6 +17,7 @@ export const API_ENDPOINTS = {
     GETALL: '/AppointmentPagination',
     POST: '/add-appointment',
     PUT: '/edit-appointment',
-    DELETE: '/delete'
+    DELETE: '/delete',
+    CALENDER:'/get_calendar'
   }
 };

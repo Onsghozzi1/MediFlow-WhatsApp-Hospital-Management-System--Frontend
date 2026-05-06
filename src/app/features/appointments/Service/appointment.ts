@@ -32,6 +32,10 @@ export class Appointment {
       dto
     );
   }
+  
+  // =========================
+  // DELETE Appointment
+  // =========================
   delete_Appointment(id: number): Observable<any> {
     return this.apiService.put(
       `${API_ENDPOINTS.APPOINTMENTS.BASE}/${id}${API_ENDPOINTS.APPOINTMENTS.DELETE}`,
@@ -39,4 +43,11 @@ export class Appointment {
     );
   }
 
+  // =========================
+  // GET LIST Appointment for calender
+  // =========================
+
+  Calender_data(): Observable<any> {
+    return this.apiService.get<any>(`${API_ENDPOINTS.APPOINTMENTS.BASE}${API_ENDPOINTS.APPOINTMENTS.CALENDER}`);
+  }
 }
