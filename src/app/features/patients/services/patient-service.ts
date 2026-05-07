@@ -54,4 +54,5 @@ GetAllPatients(appointmentId?: number): Observable<any> {
   );
 }
 
+
 }

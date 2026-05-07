@@ -2,23 +2,48 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Appointment } from '../../Service/appointment';
-import { appointment_filter, appointment_List, AppointmentStatus } from '../../appointments.model';
+import { appointment_filter, appointment_List, AppointmentStatus, AppointmentType, Priority } from '../../appointments.model';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { map, Observable, startWith } from 'rxjs';
+import { PatientService } from '../../../patients/services/patient-service';
 
 @Component({
   selector: 'app-list-appointment',
-  imports: [MatPaginatorModule,CommonModule],
+  imports: [CommonModule, MatPaginatorModule, MatAutocompleteModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule],
   templateUrl: './list-appointment.html',
   styleUrl: './list-appointment.css',
 })
 export class ListAppointment implements OnInit {
-  
+
   isLoading = false;
   pageIndex = 0;
   pageSizeOptions = [1, 25, 50];
 
-  filter: appointment_filter = {};
+
+  patient_Control = new FormControl('');
+  date_Control= new FormControl(null);
+  priority_Control = new FormControl(null);
+  status_Control = new FormControl(null);
+  type_Control = new FormControl(null);
+
+  filteredPatients$!: Observable<any[]>;
+  patientsList: any[] = [];
+  filter: appointment_filter = {
+    patient_name: '',
+    id: 0,
+    appointmentDate: null,
+    priority: null,
+    status: null,
+    appointment_Type: null
+  };
+  Priority = Priority;
+  AppointmentStatus = AppointmentStatus;
+  AppointmentType = AppointmentType;
 
   List_appointments: appointment_List = {
     content: [],
@@ -28,16 +53,16 @@ export class ListAppointment implements OnInit {
     totalPages: 0,
     last: true,
     total_Appointments: 0,
-    completed:0,
-    upcoming:0,
-    today_Appointments:0
+    completed: 0,
+    upcoming: 0,
+    today_Appointments: 0
   };
 
 
   constructor(
     private appointmentService: Appointment,
-    private route: Router
-  ) {}
+    private route: Router,
+  ) { }
 
   ngOnInit(): void {
     this.getData();
@@ -46,6 +71,13 @@ export class ListAppointment implements OnInit {
   // 🔄 GET DATA
   getData() {
     this.isLoading = true;
+
+    this.appointmentService.GetAllPatientsApoinment().subscribe(data => {
+      this.patientsList = data;
+      this.filtred_patient()
+      console.log("patient " + JSON.stringify(data))
+
+    })
 
     this.appointmentService.GetAppointmentList(
       this.List_appointments.pageNo,
@@ -60,10 +92,10 @@ export class ListAppointment implements OnInit {
           totalElements: data.totalElements,
           totalPages: data.totalPages,
           last: data.last,
-          total_Appointments:data.total_Appointments,
-          completed:data.completed,
-          upcoming:data.upcoming,
-          today_Appointments:data.today_Appointments
+          total_Appointments: data.total_Appointments,
+          completed: data.completed,
+          upcoming: data.upcoming,
+          today_Appointments: data.today_Appointments
         };
 
         this.isLoading = false;
@@ -141,6 +173,106 @@ export class ListAppointment implements OnInit {
       }
 
     });
+  }
+
+  snooze_reminder(patientId: any) {
+
+    this.appointmentService.sendWhatsApp(patientId).subscribe({
+
+      next: (data: any) => {
+        console.log(data);
+        window.open(data.url, '_blank');
+        console.log("WhatsApp URL:", JSON.stringify(data));
+
+        Swal.fire({
+          icon: 'success',
+          title: 'WhatsApp Ready 📱',
+          text: 'Message prepared successfully!',
+          confirmButtonColor: '#22c55e'
+        });
+
+        // open whatsapp link
+        window.open(data, '_blank');
+
+      },
+
+      error: (err) => {
+
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Something went wrong!',
+          confirmButtonColor: '#ef4444'
+        });
+
+        console.error(err);
+
+      }
+
+    });
+  }
+  filtred_patient() {
+    this.filteredPatients$ = this.patient_Control.valueChanges.pipe(
+      startWith(''),
+      map(value => this.filterPatients(value))
+    );
+  }
+  // 👇 Filter logic
+  private filterPatients(value: any): any[] {
+    const query = typeof value === 'string'
+      ? value.toLowerCase()
+      : value?.fullName?.toLowerCase() || '';
+    return this.patientsList.filter(p =>
+      p.fullName.toLowerCase().includes(query)
+    );
+  }
+  // 👇 Display patient name in input
+  display_patient(patient: any): string {
+    return patient ? patient.fullName : '';
+
+  }
+  onPatientSelected(patient: any) {
+    console.log("patient name " + JSON.stringify(patient.fullName))
+    this.filter.patient_name = patient.fullName
+    this.getData()
+    this.patient_Control.setValue(patient);
+  }
+  search_data(): void {
+  console.log("this.filter.Priority "+this.priority_Control.value)
+    this.filter.patient_name = this.patient_Control.value || '';
+    this.filter.appointmentDate=this.date_Control.value ;
+    this.filter.priority=this.priority_Control.value
+    this.filter.status=this.status_Control.value
+    this.filter.appointment_Type=this.type_Control.value
+    this.appointmentService.GetAppointmentList(
+      this.List_appointments.pageNo,
+      this.List_appointments.pageSize,
+      this.filter
+    ).subscribe({
+
+      next: (data: any) => {
+
+        this.List_appointments = {
+          content: data.content,
+          pageNo: data.pageNo,
+          pageSize: data.pageSize,
+          totalElements: data.totalElements,
+          totalPages: data.totalPages,
+          last: data.last,
+          total_Appointments: data.total_Appointments,
+          completed: data.completed,
+          upcoming: data.upcoming,
+          today_Appointments: data.today_Appointments
+        };
+
+      },
+
+      error: (err) => {
+        console.error(err);
+      }
+
+    });
+
   }
 
 }

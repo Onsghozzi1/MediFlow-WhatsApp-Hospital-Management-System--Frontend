@@ -1,0 +1,20 @@
+.cal-month-view .cal-event-title {
+  display: inline !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+
+  font-size: 12px !important;
+  font-weight: 500;
+  color: #111827 !important;
+}
+
+.cal-month-view .cal-event {
+  min-height: 22px !important;
+
+  display: flex !important;
+  align-items: center;
+
+  padding: 2px 6px !important;
+
+  border-radius: 6px;
+}

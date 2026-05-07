@@ -15,6 +15,7 @@
                                 <div class="mb-4 flex items-center justify-between">
                                     <h3>Appointment Management</h3>
 
+
                                     <button class="btn flex items-center gap-2 bg-sky-50 dark:bg-sky-500 
                     dark:bg-opacity-20 hover:bg-sky-100 dark:hover:bg-sky-500 
                     dark:hover:bg-opacity-30 active:bg-sky-200 dark:active:bg-sky-500 
@@ -169,6 +170,87 @@
                                                         <th>Status</th>
                                                         <th></th>
                                                     </tr>
+                                                    <tr>
+                                                        <th>
+                                                            <input type="text" placeholder="Select Patient" matInput
+                                                                [formControl]="patient_Control" [matAutocomplete]="auto"
+                                                                (input)="search_data()" class="input">
+
+                                                            <mat-autocomplete #auto="matAutocomplete"
+                                                                [displayWith]="display_patient"
+                                                                (optionSelected)="onPatientSelected($event.option.value)">
+                                                                <mat-option
+                                                                    *ngFor="let option of filteredPatients$ | async"
+                                                                    [value]="option">
+                                                                    {{ option.fullName }}
+                                                                </mat-option>
+                                                            </mat-autocomplete>
+                                                        </th>
+                                                        <th>
+                                                            <select hidden class="input">
+                                                                <option selected>----------</option>
+                                                                <option value="en">English</option>
+                                                                <option value="ch">Chinese</option>
+                                                                <option value="es">Espanol</option>
+                                                                <option value="ar">Arabic</option>
+                                                            </select>
+                                                        </th>
+                                                        <th>
+
+
+                                                            <input matInput type="datetime-local" class="input"
+                                                                [formControl]="date_Control" (input)="search_data()" />
+
+                                                        </th>
+                                                        <th>
+                                                            <select class="input" [formControl]="priority_Control"
+                                                                (change)="search_data()">
+
+                                                                <option [ngValue]="null">----------</option>
+
+                                                                <option [ngValue]="Priority.LOW">Low</option>
+                                                                <option [ngValue]="Priority.NORMAL">Normal</option>
+                                                                <option [ngValue]="Priority.HIGH">High</option>
+                                                                <option [ngValue]="Priority.URGENT">Urgent</option>
+
+                                                            </select>
+                                                        </th>
+                                                        <th>
+                                                            <select class="input" [formControl]="type_Control"
+                                                                (change)="search_data()">
+
+                                                                <option [ngValue]="null">----------</option>
+
+                                                                <option [ngValue]="AppointmentType.CONSULTATION">
+                                                                    Consultation</option>
+                                                                <option [ngValue]="AppointmentType.FOLLOW_UP">Follow-up
+                                                                </option>
+                                                                <option [ngValue]="AppointmentType.EMERGENCY">Emergency
+                                                                </option>
+                                                                <option [ngValue]="AppointmentType.ONLINE">Online
+                                                                </option>
+
+                                                            </select>
+                                                        </th>
+                                                        <th>
+
+                                                            <select class="input" [formControl]="status_Control"
+                                                                (change)="search_data()">
+
+                                                                <option [ngValue]="null">----------</option>
+
+                                                                <option [ngValue]="AppointmentStatus.PENDING">Pending
+                                                                </option>
+                                                                <option [ngValue]="AppointmentStatus.CONFIRMED">
+                                                                    Confirmed</option>
+                                                                <option [ngValue]="AppointmentStatus.DONE">Done</option>
+                                                                <option [ngValue]="AppointmentStatus.CANCELLED">
+                                                                    Cancelled</option>
+
+                                                            </select>
+                                                        </th>
+
+                                                    </tr>
                                                 </thead>
 
                                                 <tbody>
@@ -235,7 +317,7 @@
                                                                         clip-rule="evenodd"></path>
                                                                 </svg>
                                                             </div>
-                                                            <div
+                                                            <div (click)="snooze_reminder(appointment.patientId)"
                                                                 class="text-indigo-600 cursor-pointer select-none font-semibold">
                                                                 <svg xmlns="http://www.w3.org/2000/svg"
                                                                     viewBox="0 0 20 20" fill="currentColor"

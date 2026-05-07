@@ -1,5 +1,12 @@
 
 export interface appointment_filter {
+  patient_name: any;
+  id: any;
+  appointmentDate: Date | null;
+  priority : Priority| null;
+  status : AppointmentStatus| null;
+  appointment_Type : AppointmentType| null;
+
 
 }
 export interface appointment_List {
@@ -9,10 +16,10 @@ export interface appointment_List {
   totalElements: number;
   totalPages: number;
   last: boolean;
-  total_Appointments:any;
-  completed:any;
-  upcoming:any;
-  today_Appointments:any
+  total_Appointments: any;
+  completed: any;
+  upcoming: any;
+  today_Appointments: any
 }
 export enum AppointmentStatus {
   PENDING = 'PENDING',

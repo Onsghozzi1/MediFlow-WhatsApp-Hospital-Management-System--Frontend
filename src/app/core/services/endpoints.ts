@@ -10,7 +10,7 @@ export const API_ENDPOINTS = {
     POST: '/add-patient',
     PUT: '/edit-patient',
     DELETE: '/delete',
-    GETAPPO:'/get_patients'
+    GETAPPO: '/get_patients',
   },
   APPOINTMENTS: {
     BASE: 'Appointment',
@@ -18,6 +18,9 @@ export const API_ENDPOINTS = {
     POST: '/add-appointment',
     PUT: '/edit-appointment',
     DELETE: '/delete',
-    CALENDER:'/get_calendar'
+    CALENDER: '/get_calendar',
+    WATSAPP: '/send',
+    GETPatientAPPO: '/patients_appointment'
+
   }
 };

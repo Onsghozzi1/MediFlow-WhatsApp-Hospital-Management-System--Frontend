@@ -32,7 +32,7 @@ export class Appointment {
       dto
     );
   }
-  
+
   // =========================
   // DELETE Appointment
   // =========================
@@ -50,4 +50,25 @@ export class Appointment {
   Calender_data(): Observable<any> {
     return this.apiService.get<any>(`${API_ENDPOINTS.APPOINTMENTS.BASE}${API_ENDPOINTS.APPOINTMENTS.CALENDER}`);
   }
+
+  // =========================
+  // WATSAPP Appointment
+  // =========================
+
+sendWhatsApp(patientId: number) {
+
+  const params = new HttpParams()
+    .set('patientId', patientId);
+
+  return this.apiService.get<any>(
+    `${API_ENDPOINTS.APPOINTMENTS.BASE}${API_ENDPOINTS.APPOINTMENTS.WATSAPP}`,
+    params
+  );
+}
+
+GetAllPatientsApoinment(): Observable<any> {
+  return this.apiService.get(
+    `${API_ENDPOINTS.APPOINTMENTS.BASE}${API_ENDPOINTS.APPOINTMENTS.GETPatientAPPO}`
+  );
+}
 }
