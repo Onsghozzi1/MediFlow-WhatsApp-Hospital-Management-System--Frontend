@@ -30,8 +30,7 @@ export class AddUser implements OnInit {
 
   filter: User_filter = {
     idUser: 0,
-    name: '',
-    email: ''
+  
   };
 
   constructor(
@@ -117,22 +116,130 @@ export class AddUser implements OnInit {
   // =========================
   // SUBMIT
   // =========================
-  onSubmit(): void {
 
+onSubmit(): void {
 
-    const formData = {
-      ...this.registerForm.value,
-      phone: this.registerForm.value.phoneNumber,
-      profilePicture: this.profilePic,
-      roleTypes: this.registerForm.value.role
-    };
+  const formData = {
+    ...this.registerForm.value,
+    phone: this.registerForm.value.phoneNumber,
+    profilePicture: this.profilePic,
+    roleTypes: this.registerForm.value.role
+  };
 
-    if (this.userId && this.userId > 0) {
-      this.updateUser(formData);
-    } else {
-      this.createUser(formData);
-    }
+  const role = this.registerForm.get('role')?.value;
+
+  // =========================
+  // UPDATE MODE
+  // =========================
+  if (this.userId && this.userId > 0) {
+    this.updateUser(formData);
+    return;
   }
+
+  // =========================
+  // LOADING
+  // =========================
+  Swal.fire({
+    title: 'Creating...',
+    text: 'Please wait while creating user',
+    icon: 'info',
+    allowOutsideClick: false,
+    didOpen: () => {
+      Swal.showLoading();
+    }
+  });
+
+  // =========================
+  // SUCCESS HANDLER
+  // =========================
+  const handleSuccess = (message: string) => {
+
+    Swal.close();
+
+    Swal.fire({
+      icon: 'success',
+      title: message,
+      timer: 1500,
+      showConfirmButton: false
+    }).then(() => {
+      this.router.navigate(['users/users_list']);
+    });
+  };
+
+  // =========================
+  // ERROR HANDLER
+  // =========================
+  const handleError = (err: any) => {
+
+    Swal.close();
+
+    const response = err?.error;
+
+    console.log('ERROR RESPONSE:', response);
+
+    // Validation errors
+    if (response?.data && typeof response.data === 'object') {
+
+      Swal.fire({
+        icon: 'warning',
+        title: response?.message || 'Validation failed',
+        confirmButtonText: 'OK'
+      });
+
+      Object.entries(response.data).forEach(([field, value]: any) => {
+
+        const control = this.registerForm.get(field);
+
+        if (control) {
+          control.setErrors({
+            backend: value?.message || 'Invalid value'
+          });
+
+          control.markAsTouched();
+        }
+      });
+
+      return;
+    }
+
+    // Email exists
+    if (err.status === 409) {
+
+      Swal.fire({
+        icon: 'warning',
+        title: 'Email already exists',
+        text: 'Please use another email'
+      });
+
+      return;
+    }
+
+    // Generic error
+    Swal.fire({
+      icon: 'error',
+      title: response?.message || 'Something went wrong'
+    });
+  };
+
+  // =========================
+  // CALL API BASED ON ROLE
+  // =========================
+  const request$ =
+    role === 'ADMIN'
+      ? this.userService.registerAdmin(formData)
+      : this.userService.registerUser(formData);
+
+  request$.subscribe({
+    next: () =>
+      handleSuccess(
+        role === 'ADMIN'
+          ? 'Admin created successfully'
+          : 'User created successfully'
+      ),
+
+    error: handleError
+  });
+}
 
   // =========================
   // UPDATE USER

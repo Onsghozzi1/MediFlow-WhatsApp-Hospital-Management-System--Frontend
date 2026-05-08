@@ -1,8 +1,7 @@
 
 export interface User_filter {
-    idUser: Number;
-    name: String;
-    email: String;
+    idUser:     any;
+
 }
 export interface userList {
     content: any;

@@ -12,7 +12,9 @@ export class UserServices {
     return this.apiService.postWithoutAuth<any>('auth/user/client', userRegisterDTO);
   }
 
-  
+   registerAdmin(userRegisterDTO: any) {
+    return this.apiService.postWithoutAuth<any>('auth/admin/register', userRegisterDTO);
+  }
 
 
 
