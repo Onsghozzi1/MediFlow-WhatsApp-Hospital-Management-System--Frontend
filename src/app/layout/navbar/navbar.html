@@ -365,7 +365,7 @@
                         </li>
                     </ul>
                 </div>
-                @if (this.user().roleTypes?.includes('ADMIN')) {
+                @if (this.user.roleTypes?.includes('ADMIN')) {
                 <div class="dropdown">
                     <div class="dropdown-toggle">
                         <div class="menu-item menu-item-hoverable">
@@ -454,7 +454,7 @@
                         </a>
                     </div>
                 </div>
-                @if (this.user().roleTypes?.includes('ADMIN')) {
+                @if (this.user.roleTypes?.includes('ADMIN')) {
                 <div class="dropdown">
                     <div class="dropdown-toggle">
                         <div class="menu-item menu-item-hoverable">
@@ -817,8 +817,8 @@
 
                         </span>
                         <div class="hidden md:block">
-                            <div class="text-xs capitalize">{{this.user().roleTypes}}</div>
-                            <div class="font-bold">{{ this.user().firstName }} {{ this.user().lastName }}</div>
+                            <div class="text-xs capitalize">{{this.user.roleTypes}}</div>
+                            <div class="font-bold">{{ this.user.firstName }} {{ this.user.lastName }}</div>
                         </div>
                     </div>
                 </div>
@@ -830,9 +830,9 @@
                                     loading="lazy" alt="">
                             </span>
                             <div>
-                                <div class="font-bold text-gray-900 dark:text-gray-100">{{ this.user().firstName }} {{
-                                    this.user().lastName }}</div>
-                                <div class="text-xs">{{this.user().email}}</div>
+                                <div class="font-bold text-gray-900 dark:text-gray-100">{{ this.user.firstName }} {{
+                                    this.user.lastName }}</div>
+                                <div class="text-xs">{{this.user.email}}</div>
                             </div>
                         </div>
                     </li>

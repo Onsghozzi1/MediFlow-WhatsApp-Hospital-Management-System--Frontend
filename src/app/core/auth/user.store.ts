@@ -14,7 +14,7 @@ export class UserStore {
   // =========================
   private loadFromStorage() {
     const data = localStorage.getItem('user');
-
+     
     if (!data) return null;
 
     try {
@@ -29,18 +29,17 @@ export class UserStore {
   // =========================
   // SET USER
   // =========================
-  set(user: any) {
-    if (!user) return;
+set(user: any) {
 
-    this._user.set(user);
-    localStorage.setItem('user', JSON.stringify(user));
-  }
+  if (!user?.access_token) return;
 
+  this._user.set(user);
+  localStorage.setItem("user", JSON.stringify(user));
+}
   // =========================
   // CLEAR USER
   // =========================
   clear() {
-    this._user.set(null);
     localStorage.removeItem('user');
   }
 

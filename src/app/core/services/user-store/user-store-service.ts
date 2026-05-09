@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 })
 export class UserStoreService {
   private userSignal = signal<any | null>(null);
-
+  USER_KEY: any = 'user'
   constructor(private router: Router) {
     const userData = localStorage.getItem('user');
 
@@ -35,7 +35,13 @@ export class UserStoreService {
   setUser(user: any | null): void {
     this.userSignal.set(user);
   }
+  set(user: any) {
 
+    if (!user?.access_token) return;
+
+    this.userSignal.set(user);
+    localStorage.setItem(this.USER_KEY, JSON.stringify(user));
+  }
   getUser() {
     return this.userSignal();
   }

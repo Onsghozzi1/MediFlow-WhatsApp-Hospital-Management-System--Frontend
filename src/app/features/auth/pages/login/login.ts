@@ -58,7 +58,7 @@ export class Login {
 
         // Extract user info from response
         const { user } = response;
-
+        
         //  if(!user.firstTimeLogin){
         this.router.navigate(['/dashboard']);
 

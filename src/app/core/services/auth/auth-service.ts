@@ -63,6 +63,7 @@ export class AuthService {
   
   /** Save user to localStorage and update UserStore */
   private saveUser(user: User): void {
+    
     localStorage.setItem(this.USER_KEY, JSON.stringify(user));
     this.userStoreService.setUser(user);
     this.isAuthenticated.set(true);
@@ -82,13 +83,12 @@ export class AuthService {
           
 
           const { user, jwtToken } = response;
-
           const userData: User = {
             ...user,
             access_token: jwtToken,
             expires_at: Date.now() + 3600 * 1000, // 1h
           };
-
+ 
           this.saveUser(userData); // ✅ enregistré seulement ici
           this.startAutoLogoutTimer(userData.expires_at!);
         })
@@ -127,10 +127,6 @@ export class AuthService {
   logout(): void {
     this.clearLogoutTimer();
     localStorage.removeItem(this.USER_KEY);
-    localStorage.removeItem(this.TRANCHE_KEY);
-    localStorage.removeItem(this.lOCATION_KEY);
-    localStorage.removeItem(this.paymentStatusCount_dto);
-    localStorage.removeItem(this.payements_KEY);
     this.isAuthenticated.set(false);
     this.userStoreService.setUser(null);
     this.router.navigate(['/login']);
@@ -154,13 +150,9 @@ export class AuthService {
   }
 
   /** Roles & token helpers */
-
-getToken(): string | null {
-
-  const user = this.getStoredUser();
-
-  return user?.access_token || null;
-}
+  getToken(): string | null {
+    return this.getStoredUser()?.access_token || null;
+  }
 
   getRoles(): string[] {
     const roles = this.getStoredUser()?.roleTypes;

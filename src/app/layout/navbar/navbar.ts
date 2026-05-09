@@ -1,8 +1,8 @@
-import { Component, effect, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { UiService } from '../../shared/ui-kit/ui.service';
-import { UserStore } from '../../core/auth/user.store';
 import { AuthService } from '../../core/services/auth/auth-service';
 import { RouterLink } from '@angular/router';
+import { UserStoreService } from '../../core/services/user-store/user-store-service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,37 +11,54 @@ import { RouterLink } from '@angular/router';
   styleUrl: './navbar.css',
 })
 export class Navbar {
-  private userStore = inject(UserStore);
+
   private ui = inject(UiService);
   private authService = inject(AuthService);
-  profilePic: string | undefined;
-  user = this.userStore.user$;
-  constructor(
+  private userStoreService = inject(UserStoreService);
 
-  ) {
+  profilePic: string = '';
 
-    // ✅ فقط effect للdebug أو side effect بسيط
-    effect(() => {
-      console.log('👤 user changed:', this.user())
-        // 🖼️ Prepare profile picture for display
-          const rawPhoto = this.user().profilePicture ?? '';
-          this.profilePic = rawPhoto ? this.cleanBase64(rawPhoto) : '';
-    
+  user: any = null;
+
+  constructor() {
+
+    // initial load
+    this.user = this.userStoreService.getUser();
+    this.updateProfilePic();
+
+    // optional: refresh on storage changes
+    window.addEventListener('storage', () => {
+      this.user = this.userStoreService.getUser();
+      this.updateProfilePic();
     });
+
   }
-  /**
-   * 🧼 Removes the Base64 image prefix (data:image/*;base64,)
-   * to keep only the raw Base64 content.
-   */
+
+  private updateProfilePic() {
+
+    console.log('👤 user loaded:', this.user);
+
+    if (!this.user) {
+      this.profilePic = '';
+      return;
+    }
+
+    const rawPhoto = this.user.profilePicture ?? '';
+
+    this.profilePic = rawPhoto
+      ? this.cleanBase64(rawPhoto)
+      : '';
+  }
+
   cleanBase64(data: string): string {
     return data.replace(/^data:image\/[a-zA-Z]+;base64,/, '');
   }
+
   toggleSideNav() {
     this.ui.toggleSidebar();
   }
 
   logout() {
-    // this.userStore.clear();
     this.authService.logout();
   }
 }
