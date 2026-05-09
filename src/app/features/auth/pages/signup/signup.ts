@@ -126,20 +126,30 @@ export class Signup  {
       }
     });
   }
+private showValidationSwal(errors: any): void {
 
-  private showValidationSwal(errors: Record<string, string>): void {
-    const html = Object.values(errors)
-      .map(msg => `• ${msg}`)
-      .join('<br>');
+  const html = Object.values(errors)
+    .map((msg: any) => {
 
-    Swal.fire({
-      icon: 'error',
-      title: 'Validation Error',
-      html,
-      confirmButtonColor: '#ef4444'
-    });
-  }
+      if (typeof msg === 'string') {
+        return `• ${msg}`;
+      }
 
+      if (typeof msg === 'object' && msg !== null) {
+        return `• ${msg.message || JSON.stringify(msg)}`;
+      }
+
+      return `• Unknown error`;
+    })
+    .join('<br>');
+
+  Swal.fire({
+    icon: 'error',
+    title: 'Validation Error',
+    html,
+    confirmButtonColor: '#ef4444'
+  });
+}
   private showGeneralError(message: string): void {
     Swal.fire({
       icon: 'error',
