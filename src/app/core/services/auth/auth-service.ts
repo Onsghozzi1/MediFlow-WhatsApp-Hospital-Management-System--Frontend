@@ -60,6 +60,7 @@ export class AuthService {
     }
   }
 
+  
   /** Save user to localStorage and update UserStore */
   private saveUser(user: User): void {
     localStorage.setItem(this.USER_KEY, JSON.stringify(user));
@@ -153,9 +154,13 @@ export class AuthService {
   }
 
   /** Roles & token helpers */
-  getToken(): string | null {
-    return this.getStoredUser()?.access_token || null;
-  }
+
+getToken(): string | null {
+
+  const user = this.getStoredUser();
+
+  return user?.access_token || null;
+}
 
   getRoles(): string[] {
     const roles = this.getStoredUser()?.roleTypes;

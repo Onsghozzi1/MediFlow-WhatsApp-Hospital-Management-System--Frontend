@@ -1,0 +1,11 @@
+.cta-banner {
+  max-width: 1320px;
+  margin: 40px auto;
+  background: linear-gradient(115deg, #f3f9fb, #ffffff);
+  border-radius: 56px;
+  padding: 48px 44px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}

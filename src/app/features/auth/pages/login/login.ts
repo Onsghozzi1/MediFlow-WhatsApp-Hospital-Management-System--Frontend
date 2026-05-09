@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterLink } from '@angular/router';
 import { UserServices } from '../../../../core/services/user-services/user-services';
 import { AuthService } from '../../../../core/services/auth/auth-service';
+import { UserStore } from '../../../../core/auth/user.store';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ export class Login {
     private fb: FormBuilder,
     private router: Router,
     private authservice: AuthService,
+    private userStore :UserStore
 
   ) {
     this.loginForm = this.fb.group({
@@ -56,6 +58,7 @@ export class Login {
 
         // Extract user info from response
         const { user } = response;
+
         //  if(!user.firstTimeLogin){
         this.router.navigate(['/dashboard']);
 

@@ -151,14 +151,91 @@
                                                         <th>Address</th>
                                                         <th></th>
                                                     </tr>
+                                                    <tr>
+                                                        <th>
+                                                            <input type="text" placeholder="Select Patient" matInput
+                                                                [formControl]="patient_Control" [matAutocomplete]="auto"
+                                                                (input)="search_data()" class="input">
+
+                                                            <mat-autocomplete #auto="matAutocomplete"
+                                                                [displayWith]="display_patient">
+                                                                <mat-option
+                                                                    *ngFor="let option of filteredPatients$ | async"
+                                                                    [value]="option">
+                                                                    {{ option }}
+                                                                </mat-option>
+                                                            </mat-autocomplete>
+                                                        </th>
+                                                        <th>
+                                                            <input type="text" placeholder="Select Patient" matInput
+                                                                [formControl]="fullname_Control"
+                                                                [matAutocomplete]="auto1" (input)="search_data()"
+                                                                class="input">
+
+                                                            <mat-autocomplete #auto1="matAutocomplete"
+                                                                [displayWith]="display_fullname"
+                                                                (optionSelected)="onPatientSelected($event.option.value)">
+                                                                <mat-option
+                                                                    *ngFor="let option of fullnamePatients$  | async"
+                                                                    [value]="option">
+                                                                    {{ option }}
+                                                                </mat-option>
+                                                            </mat-autocomplete>
+                                                        </th>
+                                                        <th>
+
+                                                        </th>
+                                                        <th>
+                                                            <select class="input" [formControl]="gender_Control"
+                                                                (change)="search_data()">
+
+                                                                <option [ngValue]="null">----------</option>
+
+                                                                <option [ngValue]="gender.MALE">MALE</option>
+
+                                                                <option [ngValue]="gender.FEMALE">FEMALE</option>
+
+                                                            </select>
+                                                        </th>
+                                                        <th>
+                                                            <input type="text" placeholder="Phone" matInput
+                                                                [formControl]="phone_Control" [matAutocomplete]="auto2"
+                                                                (input)="search_data()" class="input">
+
+                                                            <mat-autocomplete #auto2="matAutocomplete"
+                                                                [displayWith]="display_phone"
+                                                                (optionSelected)="onPatientSelected($event.option.value)">
+                                                                <mat-option
+                                                                    *ngFor="let option of phonePatients$  | async"
+                                                                    [value]="option">
+                                                                    {{ option }}
+                                                                </mat-option>
+                                                            </mat-autocomplete>
+                                                        </th>
+                                                        <th>
+                                                            <input type="text" placeholder="Adresst" matInput
+                                                                [formControl]="address_Control"
+                                                                [matAutocomplete]="auto3" (input)="search_data()"
+                                                                class="input">
+
+                                                            <mat-autocomplete #auto3="matAutocomplete"
+                                                                [displayWith]="display_fullname"
+                                                                (optionSelected)="onPatientSelected($event.option.value)">
+                                                                <mat-option
+                                                                    *ngFor="let option of address_Patients$  | async"
+                                                                    [value]="option">
+                                                                    {{ option }}
+                                                                </mat-option>
+                                                            </mat-autocomplete>
+                                                        </th>
+                                                    </tr>
                                                 </thead>
                                                 <tbody>
                                                     @for (patient of List_patients.content; track patient.id) {
                                                     <tr [ngClass]="{
     'row-female': patient.gender === 'FEMALE',
     'row-male': patient.gender === 'MALE'
-  }"   [class.opacity-50]="patient.patient_activated"
-  [class.pointer-events-none]="patient.patient_activated">
+  }" [class.opacity-50]="patient.patient_activated" [class.pointer-events-none]="patient.patient_activated">
                                                         <!-- medical_Record_ID -->
                                                         <td class="font-semibold">
                                                             {{ patient.medical_Record_ID?? 'NOT FOUND' }}
@@ -188,7 +265,7 @@
                                                                         clip-rule="evenodd"></path>
                                                                 </svg>
                                                             </div>
-                                                            <div (click)="delete_patient(patient?.id)" 
+                                                            <div (click)="delete_patient(patient?.id)"
                                                                 class="text-red-600 cursor-pointer select-none font-semibold">
                                                                 <svg xmlns="http://www.w3.org/2000/svg"
                                                                     viewBox="0 0 20 20" fill="currentColor"
@@ -199,7 +276,7 @@
                                                                 </svg>
                                                             </div>
 
-                                                            <div  (click)="!patient.patient_activated && gotoAppointment(patient?.id)"
+                                                            <div (click)="!patient.patient_activated && gotoAppointment(patient?.id)"
                                                                 class="text-red-600 cursor-pointer select-none font-semibold">
                                                                 <svg xmlns="http://www.w3.org/2000/svg"
                                                                     viewBox="0 0 20 20" fill="currentColor"

@@ -1,30 +1,82 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class UserStore {
 
-  private _user = signal<any>(this.load());
+  // =========================
+  // STATE
+  // =========================
+  private _user = signal<any>(this.loadFromStorage());
   user$ = this._user.asReadonly();
 
-  private load() {
+  // =========================
+  // LOAD SAFE
+  // =========================
+  private loadFromStorage() {
     const data = localStorage.getItem('user');
-    return data ? JSON.parse(data) : null;
+
+    if (!data) return null;
+
+    try {
+      return JSON.parse(data);
+    } catch (e) {
+      console.error('Invalid user in localStorage');
+      localStorage.removeItem('user');
+      return null;
+    }
   }
 
+  // =========================
+  // SET USER
+  // =========================
   set(user: any) {
-    localStorage.setItem('user', JSON.stringify(user));
+    if (!user) return;
+
     this._user.set(user);
+    localStorage.setItem('user', JSON.stringify(user));
   }
 
+  // =========================
+  // CLEAR USER
+  // =========================
   clear() {
-    localStorage.removeItem('user');
     this._user.set(null);
+    localStorage.removeItem('user');
   }
 
-  // derived
-  userId$ = signal(() => this._user()?.id || null);
-  firstName$ = signal(() => this._user()?.firstName || null);
-  lastName$ = signal(() => this._user()?.lastName || null);
-  profilePic$ = signal(() => this._user()?.profilePic || null);
-  email$ = signal(() => this._user()?.email || null); // 👈 added
+  // =========================
+  // GET USER
+  // =========================
+  getUser() {
+    return this._user();
+  }
+
+  // =========================
+  // AUTH CHECK (IMPORTANT FIX)
+  // =========================
+  isAuthenticated(): boolean {
+    const user = this._user();
+
+    return !!(
+      user &&
+      user.access_token &&
+      user.expires_at &&
+      Date.now() < user.expires_at
+    );
+  }
+
+  // =========================
+  // COMPUTED VALUES (FIXED)
+  // =========================
+  userId = computed(() => this._user()?.id ?? null);
+
+  firstName = computed(() => this._user()?.firstName ?? null);
+
+  lastName = computed(() => this._user()?.lastName ?? null);
+
+  email = computed(() => this._user()?.email ?? null);
+
+  profilePic = computed(() => this._user()?.profilePic ?? null);
+
+  roleTypes = computed(() => this._user()?.roleTypes ?? []);
 }

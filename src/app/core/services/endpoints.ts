@@ -11,6 +11,7 @@ export const API_ENDPOINTS = {
     PUT: '/edit-patient',
     DELETE: '/delete',
     GETAPPO: '/get_patients',
+    List_Patient: '/all_list_patients',
   },
   APPOINTMENTS: {
     BASE: 'Appointment',
@@ -21,6 +22,12 @@ export const API_ENDPOINTS = {
     CALENDER: '/get_calendar',
     WATSAPP: '/send',
     GETPatientAPPO: '/patients_appointment'
+
+  },
+  APPOINTMENTS_patient: {
+    BASE: 'patient_appointments',
+    POST: '/add_appointment_patient',
+  
 
   }
 };

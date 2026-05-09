@@ -25,8 +25,7 @@ import { CommonModule } from '@angular/common';
 export class ListUsers {
   filter: User_filter = {
     idUser: 0,
-    name: '',
-    email: ''
+   
   };
   fullNameControle = new FormControl();
   emailControle = new FormControl();

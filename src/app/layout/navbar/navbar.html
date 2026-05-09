@@ -365,6 +365,7 @@
                         </li>
                     </ul>
                 </div>
+                @if (this.user().roleTypes?.includes('ADMIN')) {
                 <div class="dropdown">
                     <div class="dropdown-toggle">
                         <div class="menu-item menu-item-hoverable">
@@ -380,96 +381,27 @@
                         </div>
                     </div>
                     <ul class="dropdown-menu">
-                        <li class="menu-item dropdown-submenu-item">
+                        <li class="menu-item ">
                             <div class="menu-item-toggle">
-                                <span class="menu-item-text">Sign In</span>
+                                <span class="menu-item-text">Dashboard</span>
                             </div>
-                            <ul class="dropdown-sub-menu">
-                                <li data-menu-item="signin-simple" class="menu-item">
-                                    <a class="h-full w-full flex items-center" href="signin-simple.html">
-                                        <span>Simple</span>
-                                    </a>
-                                </li>
-                                <li data-menu-item="signin-side" class="menu-item">
-                                    <a class="h-full w-full flex items-center" href="signin-side.html">
-                                        <span>Side</span>
-                                    </a>
-                                </li>
-                                <li data-menu-item="signin-cover" class="menu-item">
-                                    <a class="h-full w-full flex items-center" href="signin-cover.html">
-                                        <span>Cover</span>
-                                    </a>
-                                </li>
-                            </ul>
+                        
                         </li>
-                        <li class="menu-item dropdown-submenu-item">
+                        <li class="menu-item ">
                             <div class="menu-item-toggle">
-                                <span class="menu-item-text">Sign Up</span>
+                                <span class="menu-item-text">Doctor List</span>
                             </div>
-                            <ul class="dropdown-sub-menu">
-                                <li data-menu-item="signup-simple" class="menu-item">
-                                    <a class="h-full w-full flex items-center" href="signup-simple.html">
-                                        <span>Simple</span>
-                                    </a>
-                                </li>
-                                <li data-menu-item="signup-side" class="menu-item">
-                                    <a class="h-full w-full flex items-center" href="signup-side.html">
-                                        <span>Side</span>
-                                    </a>
-                                </li>
-                                <li data-menu-item="signup-cover" class="menu-item">
-                                    <a class="h-full w-full flex items-center" href="signup-cover.html">
-                                        <span>Cover</span>
-                                    </a>
-                                </li>
-                            </ul>
+                       
                         </li>
-                        <li class="menu-item dropdown-submenu-item">
+                        <li class="menu-item">
                             <div class="menu-item-toggle">
-                                <span class="menu-item-text">Forgot Password</span>
+                                <span class="menu-item-text">Patient Consultations Management</span>
                             </div>
-                            <ul class="dropdown-sub-menu">
-                                <li data-menu-item="forget-password-simple" class="menu-item">
-                                    <a class="h-full w-full flex items-center" href="forget-password-simple.html">
-                                        <span>Simple</span>
-                                    </a>
-                                </li>
-                                <li data-menu-item="forget-password-side" class="menu-item">
-                                    <a class="h-full w-full flex items-center" href="forget-password-side.html">
-                                        <span>Side</span>
-                                    </a>
-                                </li>
-                                <li data-menu-item="forget-password-cover" class="menu-item">
-                                    <a class="h-full w-full flex items-center" href="forget-password-cover.html">
-                                        <span>Cover</span>
-                                    </a>
-                                </li>
-                            </ul>
+                         
                         </li>
-                        <li class="menu-item dropdown-submenu-item">
-                            <div class="menu-item-toggle">
-                                <span class="menu-item-text">Reset Password</span>
-                            </div>
-                            <ul class="dropdown-sub-menu">
-                                <li data-menu-item="reset-password-simple" class="menu-item">
-                                    <a class="h-full w-full flex items-center" href="reset-password-simple.html">
-                                        <span>Simple</span>
-                                    </a>
-                                </li>
-                                <li data-menu-item="reset-password-side" class="menu-item">
-                                    <a class="h-full w-full flex items-center" href="reset-password-side.html">
-                                        <span>Side</span>
-                                    </a>
-                                </li>
-                                <li data-menu-item="reset-password-cover" class="menu-item">
-                                    <a class="h-full w-full flex items-center" href="reset-password-cover.html">
-                                        <span>Cover</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                      
                     </ul>
-                </div>
+                </div>}
                 <div class="dropdown">
                     <div class="dropdown-toggle">
                         <div class="menu-item menu-item-hoverable">
@@ -496,13 +428,13 @@
                                 </span>
                             </a>
                         </li>
-                           <li data-menu-item="simple-access-denied" class="menu-item menu-item-single">
+                        <li data-menu-item="simple-access-denied" class="menu-item menu-item-single">
                             <a class="menu-item-link" [routerLink]="['appointments', 'calender']">
                                 <span class="menu-item-text">Calendar
                                 </span>
                             </a>
                         </li>
-                        
+
                     </ul>
                 </div>
 
@@ -522,6 +454,7 @@
                         </a>
                     </div>
                 </div>
+                @if (this.user().roleTypes?.includes('ADMIN')) {
                 <div class="dropdown">
                     <div class="dropdown-toggle">
                         <div class="menu-item menu-item-hoverable">
@@ -611,6 +544,8 @@
                         </li>
                     </ul>
                 </div>
+                }
+
             </div>
         </div>
         <!-- Header Nav Middle end -->

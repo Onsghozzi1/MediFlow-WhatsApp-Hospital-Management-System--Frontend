@@ -5,6 +5,13 @@ import { AuthGuard } from './core/auth/auth-guard';
 import { GuestGuard } from './core/services/Guest-Guard/guest-gard';
 
 export const routes: Routes = [
+  // 🌍 Landing Page
+  {
+    path: '',
+    loadChildren: () =>
+      import('./features/landing-page/landing-page-routing-module')
+        .then(m => m.LandingPageRoutingModule)
+  },
 
   // 🔐 Auth (no navbar)
   {

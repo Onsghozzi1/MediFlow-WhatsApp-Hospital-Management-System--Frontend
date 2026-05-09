@@ -1,0 +1,43 @@
+<nav class="navbar">
+
+  <div class="logo">
+
+    <div class="logo-icon">
+      <img src="../../../../../assets/img/logo/logo-landing-page.png">
+    </div>
+
+    <h1>CAREFLOW</h1>
+
+  </div>
+
+  <!-- MOBILE BUTTON -->
+
+  <button class="menu-toggle" (click)="toggleMenu()">
+
+    <i class="fas" [ngClass]="isMenuOpen ? 'fa-times' : 'fa-bars'"></i>
+
+  </button>
+
+  <!-- NAV LINKS -->
+
+  <div class="nav-links" [class.active]="isMenuOpen">
+
+    <a href="#">Home</a>
+
+    <a href="#doctor">Our Doctor</a>
+
+    <a href="#services">Services</a>
+
+    <a href="#">Contact</a>
+
+    <a href="#" class="btn-urgent">
+
+      <i class="fas fa-phone-alt"></i>
+
+      Emergency 24/7
+
+    </a>
+
+  </div>
+
+</nav>

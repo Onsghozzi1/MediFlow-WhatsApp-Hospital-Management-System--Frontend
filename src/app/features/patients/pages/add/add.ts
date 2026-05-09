@@ -56,6 +56,7 @@ export class Add implements OnInit {
       tap(id => this.patientId = isNaN(id) ? null : id),
       filter(id => !!id && !isNaN(id)),
       switchMap(id =>
+        
         this.patientService.GetPatientList(0, 1, { id })
       ),
       takeUntilDestroyed(this.destroyRef)

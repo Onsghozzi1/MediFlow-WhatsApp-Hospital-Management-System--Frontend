@@ -71,4 +71,43 @@ GetAllPatientsApoinment(): Observable<any> {
     `${API_ENDPOINTS.APPOINTMENTS.BASE}${API_ENDPOINTS.APPOINTMENTS.GETPatientAPPO}`
   );
 }
+  // =========================
+  // GET AVAILABLE SLOTS
+  // =========================
+
+  getAvailableSlots(
+    doctorId: number,
+    date: string
+  ): Observable<string[]> {
+  const params = new HttpParams()
+    .set('doctorId', doctorId)
+    .set('date', date);
+    return this.apiService.get<string[]>(
+      `${API_ENDPOINTS.APPOINTMENTS.BASE}/slots`,
+     params
+    );
+  }
+
+  // =========================
+  // CREATE APPOINTMENT
+  // =========================
+
+  createAppointment(data: any): Observable<any> {
+  const params = new HttpParams()
+    .set('doctorId', data.doctorId)
+    .set('patientName', data.patientName)
+    .set('date', data.date)
+    .set('time', data.time);
+    return this.apiService.post(
+       `${API_ENDPOINTS.APPOINTMENTS.BASE}/create_appoint`,
+      {params},
+     
+    );
+  }
+  moveAppointment(id: number, payload: any) {
+  return this.apiService.put(
+    `${API_ENDPOINTS.APPOINTMENTS.BASE}/${id}/move`,
+    payload
+  );
+}
 }

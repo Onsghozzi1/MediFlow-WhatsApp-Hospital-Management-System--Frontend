@@ -18,8 +18,7 @@ export class UserStore {
 
   private _filter = signal<User_filter>({
     idUser: 0,
-    name: '',
-    email: ''
+   
   });
 
   constructor(private service: UserManagement) {}

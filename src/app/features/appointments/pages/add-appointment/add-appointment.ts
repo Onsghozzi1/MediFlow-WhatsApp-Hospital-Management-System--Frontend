@@ -123,11 +123,11 @@ private loadAppointmentIfEdit(): void {
     tap(id => {
       if(id){
   this.appointmentId = id; // ✅ THIS IS THE FIX
+  this.loadPatients(this.appointmentId)
 
       }else {
         this.appointmentId=null
       }
-  this.loadPatients(this.appointmentId)
   console.log('SET appointmentId:', this.appointmentId);
 }),
 

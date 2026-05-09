@@ -14,7 +14,7 @@ export class PatientService {
     private apiService: ApiService
   ) { }
 
-  GetPatientList(pageNo: number, pageSize: number, filtre?: patient_filter): Observable<any> {
+  GetPatientList(pageNo: number, pageSize: number, filtre?: any): Observable<any> {
     let params = new HttpParams()
       .set('pageNo', `${pageNo}`)
       .set('pageSize', `${pageSize}`)
@@ -54,5 +54,10 @@ GetAllPatients(appointmentId?: number): Observable<any> {
   );
 }
 
+GetAllList(){
+    return this.apiService.get(
+    `${API_ENDPOINTS.PATIENTS.BASE}${API_ENDPOINTS.PATIENTS.List_Patient}`
+  );
+}
 
 }

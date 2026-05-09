@@ -1,7 +1,7 @@
 
 export interface User_filter {
-    idUser:     any;
-
+    idUser: any;
+  
 }
 export interface userList {
     content: any;

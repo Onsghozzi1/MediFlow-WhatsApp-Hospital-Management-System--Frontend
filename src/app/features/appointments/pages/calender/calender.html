@@ -4,49 +4,48 @@
 	<div
 		class="bg-white rounded-2xl shadow-sm border p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 
-		<!-- LEFT ACTIONS -->
+		<!-- LEFT -->
 		<div class="flex items-center gap-2">
 
 			<button mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
-				class="px-4 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 transition font-medium">
+				class="px-4 py-2 rounded-xl bg-gray-100 hover:bg-gray-200">
 				← Previous
 			</button>
 
 			<button mwlCalendarToday [(viewDate)]="viewDate"
-				class="px-4 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition font-medium">
+				class="px-4 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700">
 				Today
 			</button>
 
 			<button mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
-				class="px-4 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 transition font-medium">
+				class="px-4 py-2 rounded-xl bg-gray-100 hover:bg-gray-200">
 				Next →
 			</button>
 
 		</div>
 
-		<!-- CENTER TITLE -->
-		<div class="text-lg font-semibold text-gray-700 text-center">
-			{{ viewDate | calendarDate: view + 'ViewTitle' : 'en' }}
+		<!-- CENTER -->
+		<div class="text-lg font-semibold text-gray-700">
+
+			{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}
+
 		</div>
 
-		<!-- RIGHT VIEW SWITCH -->
+		<!-- RIGHT -->
 		<div class="flex bg-gray-100 p-1 rounded-xl">
 
-			<button (click)="setView(CalendarView.Month)" [class]="view === CalendarView.Month 
-          ? 'bg-white shadow text-blue-600'
-          : 'text-gray-600'" class="px-4 py-2 rounded-lg font-medium transition">
+			<button (click)="setView(CalendarView.Month)" class="px-4 py-2 rounded-lg"
+				[class.bg-white]="view === CalendarView.Month">
 				Month
 			</button>
 
-			<button (click)="setView(CalendarView.Week)" [class]="view === CalendarView.Week 
-          ? 'bg-white shadow text-blue-600'
-          : 'text-gray-600'" class="px-4 py-2 rounded-lg font-medium transition">
+			<button (click)="setView(CalendarView.Week)" class="px-4 py-2 rounded-lg"
+				[class.bg-white]="view === CalendarView.Week">
 				Week
 			</button>
 
-			<button (click)="setView(CalendarView.Day)" [class]="view === CalendarView.Day 
-          ? 'bg-white shadow text-blue-600'
-          : 'text-gray-600'" class="px-4 py-2 rounded-lg font-medium transition">
+			<button (click)="setView(CalendarView.Day)" class="px-4 py-2 rounded-lg"
+				[class.bg-white]="view === CalendarView.Day">
 				Day
 			</button>
 
@@ -54,26 +53,38 @@
 
 	</div>
 
-	<!-- CALENDAR CONTAINER -->
+	<!-- CALENDAR -->
 	<div class="mt-6 bg-white rounded-2xl shadow-sm border p-4">
 
-		<div class="rounded-xl overflow-hidden">
+		@switch (view) {
 
-			@switch (view) {
-			@case (CalendarView.Month) {
-			<mwl-calendar-month-view [viewDate]="viewDate" [events]="events"  />
-			}
+		@case (CalendarView.Month) {
 
-			@case (CalendarView.Week) {
-			<mwl-calendar-week-view [viewDate]="viewDate" [events]="events" />
-			}
 
-			@case (CalendarView.Day) {
-			<mwl-calendar-day-view [viewDate]="viewDate" [events]="events" />
-			}
-			}
+		<mwl-calendar-month-view [viewDate]="viewDate" [events]="events" [refresh]="refresh"
+			(eventTimesChanged)="eventTimesChanged($event)">
+		</mwl-calendar-month-view>
 
-		</div>
+		}
+
+		@case (CalendarView.Week) {
+
+		<mwl-calendar-week-view [viewDate]="viewDate" [events]="events" [refresh]="refresh"
+			(hourSegmentClicked)="hourSegmentClicked($event)" (eventTimesChanged)="eventTimesChanged($event)"
+			(eventClicked)="handleEvent($event.event)">
+		</mwl-calendar-week-view>
+
+		}
+
+		@case (CalendarView.Day) {
+		<mwl-calendar-day-view [viewDate]="viewDate" [events]="events" [refresh]="refresh"
+			(hourSegmentClicked)="hourSegmentClicked($event)" (eventTimesChanged)="eventTimesChanged($event)"
+			(eventClicked)="handleEvent($event.event)">
+		</mwl-calendar-day-view>
+
+		}
+
+		}
 
 	</div>
 
