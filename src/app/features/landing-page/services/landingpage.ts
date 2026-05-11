@@ -12,4 +12,10 @@ export class Landingpage {
   Add_Appointment_Patient(AppointmentDTO: any) {
     return this.apiService.postWithoutAuth(API_ENDPOINTS.APPOINTMENTS_patient.BASE + API_ENDPOINTS.APPOINTMENTS_patient.POST, AppointmentDTO);
   }
+
+  getBookedSlots(date: string) {
+  return this.apiService.get<string[]>(
+    `${API_ENDPOINTS.APPOINTMENTS_patient.BASE}/booked-slots?date=${date}`
+  );
+}
 }

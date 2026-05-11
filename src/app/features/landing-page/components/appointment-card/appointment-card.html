@@ -44,66 +44,121 @@
       </div>
 
     </div>
+    <div class="date-slot-group">
 
-    <div class="input-group">
-      <input type="email" placeholder="Email address *">
+      <!-- Date -->
+      <div class="field date-field">
+
+        <input #dateInput  type="date" formControlName="selectedDate" (change)="onDateChange($event)" />
+        <svg (click)="openCalendar(dateInput)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+          fill="currentColor" aria-hidden="true" class="w-5 h-5">
+          <path
+            d="M5.25 12a.75.75 0 01.75-.75h.01a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75H6a.75.75 0 01-.75-.75V12zM6 13.25a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 00.75-.75V14a.75.75 0 00-.75-.75H6zM7.25 12a.75.75 0 01.75-.75h.01a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75H8a.75.75 0 01-.75-.75V12zM8 13.25a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 00.75-.75V14a.75.75 0 00-.75-.75H8zM9.25 10a.75.75 0 01.75-.75h.01a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75H10a.75.75 0 01-.75-.75V10zM10 11.25a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 00.75-.75V12a.75.75 0 00-.75-.75H10zM9.25 14a.75.75 0 01.75-.75h.01a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75H10a.75.75 0 01-.75-.75V14zM12 9.25a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 00.75-.75V10a.75.75 0 00-.75-.75H12zM11.25 12a.75.75 0 01.75-.75h.01a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75H12a.75.75 0 01-.75-.75V12zM12 13.25a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 00.75-.75V14a.75.75 0 00-.75-.75H12zM13.25 10a.75.75 0 01.75-.75h.01a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75H14a.75.75 0 01-.75-.75V10zM14 11.25a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 00.75-.75V12a.75.75 0 00-.75-.75H14z">
+          </path>
+          <path fill-rule="evenodd"
+            d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z"
+            clip-rule="evenodd"></path>
+        </svg>
+      </div>
+
+      <!-- Slot -->
+      <div class="field slot-field">
+        <select formControlName="selectedSlot">
+          <option value="" disabled selected>Select time</option>
+          <option *ngFor="let slot of timeSlots" [value]="slot">
+            {{ slot }}
+          </option>
+        </select>
+      </div>
+
     </div>
-
     <div class="form-row">
 
-      <div class="input-group">
 
-        <select formControlName="reason">
+      <div class="gender-group">
 
-          <option [value]="null">Priority</option>
+        <label class="radio-inline">
+          <input type="radio" formControlName="gender" value="MALE">
+          <span>Male</span>
+        </label>
 
-          
+        <label class="radio-inline">
+          <input type="radio" formControlName="gender" value="FEMALE">
+          <span>Female</span>
+        </label>
+
+      </div>
+
+    
+   <!-- Date -->
+      <div class="field date-field">
+
+        <input #birthDate  type="date" formControlName="birthDate"  />
+        <svg (click)="openCalendar(birthDate)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+          fill="currentColor" aria-hidden="true" class="w-5 h-5">
+          <path
+            d="M5.25 12a.75.75 0 01.75-.75h.01a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75H6a.75.75 0 01-.75-.75V12zM6 13.25a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 00.75-.75V14a.75.75 0 00-.75-.75H6zM7.25 12a.75.75 0 01.75-.75h.01a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75H8a.75.75 0 01-.75-.75V12zM8 13.25a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 00.75-.75V14a.75.75 0 00-.75-.75H8zM9.25 10a.75.75 0 01.75-.75h.01a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75H10a.75.75 0 01-.75-.75V10zM10 11.25a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 00.75-.75V12a.75.75 0 00-.75-.75H10zM9.25 14a.75.75 0 01.75-.75h.01a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75H10a.75.75 0 01-.75-.75V14zM12 9.25a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 00.75-.75V10a.75.75 0 00-.75-.75H12zM11.25 12a.75.75 0 01.75-.75h.01a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75H12a.75.75 0 01-.75-.75V12zM12 13.25a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 00.75-.75V14a.75.75 0 00-.75-.75H12zM13.25 10a.75.75 0 01.75-.75h.01a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75H14a.75.75 0 01-.75-.75V10zM14 11.25a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 00.75-.75V12a.75.75 0 00-.75-.75H14z">
+          </path>
+          <path fill-rule="evenodd"
+            d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z"
+            clip-rule="evenodd"></path>
+        </svg>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-row">
+
+        <div class="input-group">
+
+          <select formControlName="reason">
+
+            <option [value]="null">Priority</option>
+
+
             <option [value]="Priority.LOW">Low</option>
             <option [value]="Priority.NORMAL">Normal</option>
             <option [value]="Priority.HIGH">High</option>
             <option [value]="Priority.URGENT">Urgent</option>
           </select>
 
+        </div>
+
+
       </div>
 
-      <div class="input-group">
-        <input type="datetime-local" formControlName="appointmentDate">
-      </div>
+      <div class="form-row">
 
+        <div class="input-group">
+
+          <select formControlName="consultMode">
+
+            <option [value]="null">
+              Choose appointment type
+            </option>
+
+            <option [value]="AppointmentType.CONSULTATION">
+              Consultation
+            </option>
+
+            <option [value]="AppointmentType.FOLLOW_UP">
+              Follow-up
+            </option>
+
+            <option [value]="AppointmentType.EMERGENCY">
+              Emergency
+            </option>
+
+            <option [value]="AppointmentType.ONLINE">
+              Online
+            </option>
+
+          </select>
+
+        </div>
+        
+
+      </div>
     </div>
-
-    <div class="form-row">
-
-      <div class="input-group">
-
-        <select formControlName="consultMode">
-
-          <option [value]="null">
-            Choose appointment type
-          </option>
-
-          <option [value]="AppointmentType.CONSULTATION">
-            Consultation
-          </option>
-
-          <option [value]="AppointmentType.FOLLOW_UP">
-            Follow-up
-          </option>
-
-          <option [value]="AppointmentType.EMERGENCY">
-            Emergency
-          </option>
-
-          <option [value]="AppointmentType.ONLINE">
-            Online
-          </option>
-
-        </select>
-
-      </div>
-
-    </div>
-
     <button type="submit" class="btn-primary" [disabled]="isLoading">
 
       <i class="fas fa-calendar-plus"></i>
