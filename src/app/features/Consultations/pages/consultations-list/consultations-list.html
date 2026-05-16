@@ -43,7 +43,7 @@
                                 <div
                                     class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 mb-6 items-stretch">
 
-                                    <!-- CARD 1 - Total Appointments -->
+                                    <!-- CARD 1 - Total consultations -->
                                     <div style="background-color: azure;"
                                         class="card rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition h-full">
 
@@ -72,7 +72,7 @@
                                         </div>
                                     </div>
 
-                                    <!-- CARD 2 - Today's Appointments -->
+                                    <!-- CARD 2 - Today's consultations -->
                                     <div style="background-color: #dcfce7;"
                                         class="card rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition h-full">
 
@@ -178,8 +178,8 @@
 
                                                 <tbody>
                                                     @for (
-                                                    appointment of (consultation_.content ?? []);
-                                                    track appointment;
+                                                    consultation of (consultation_.content ?? []);
+                                                    track consultation;
                                                     let i = $index
                                                     ){
 
@@ -187,42 +187,39 @@
 
                                                         <!-- Patient -->
                                                         <td>
-                                                            {{ appointment?.patient?.fullName ?? 'Not found' }}
+                                                            {{ consultation?.patient?.fullName ?? 'Not found' }}
                                                         </td>
 
                                                         <!-- Doctor -->
                                                         <td>
-                                                            {{ appointment.symptoms ?? 'Not found' }}
+                                                            {{ consultation.symptoms ?? 'Not found' }}
                                                         </td>
 
                                                         <!-- Date -->
                                                         <td>
-                                                            {{ appointment.diagnosis ?? 'Not found' }}
+                                                            {{ consultation.diagnosis ?? 'Not found' }}
                                                         </td>
                                                         <!-- Priority -->
                                                         <td>
 
                                                             <!-- IF PRESCRIPTIONS EXIST -->
-                                                            <div *ngIf="appointment.dto?.length">
-
+                                                            @if (consultation.dto?.length) {
+                                                            <div>
                                                                 <!-- BUTTON -->
-                                                                <div 
-                                                                    data-bs-toggle="collapse"
+                                                                <div data-bs-toggle="collapse"
                                                                     [attr.data-bs-target]="'#prescription' + i">
 
                                                                     <i class="bi bi-capsule-pill me-1"></i>
 
-                                                                    {{ appointment.dto.length }}
+                                                                    {{ consultation.dto.length }}
                                                                     Prescription
 
                                                                 </div>
 
                                                                 <!-- COLLAPSE CONTENT -->
                                                                 <div class="collapse mt-3" [id]="'prescription' + i">
-
-                                                                    <div *ngFor="let p of appointment.dto"
-                                                                        class="prescription-card">
-
+                                                                    @for (p of consultation.dto; track $index) {
+                                                                    <div class="prescription-card">
                                                                         <div class="mb-2">
                                                                             <strong>Medicine:</strong>
                                                                             {{ p.medicineName }}
@@ -249,13 +246,13 @@
                                                                         </div>
 
                                                                     </div>
-
+                                                                    }
                                                                 </div>
 
                                                             </div>
-
+                                                            }
                                                             <!-- NO PRESCRIPTIONS -->
-                                                            <span *ngIf="!appointment.dto?.length"
+                                                            <span *ngIf="!consultation.dto?.length"
                                                                 class="badge bg-light text-dark">
                                                                 No Prescription
 
@@ -267,7 +264,7 @@
 
                                                         <!-- Status -->
                                                         <td class="px-3 py-1 col-status ">
-                                                            {{ appointment.status ?? 'Not found' }}
+                                                            {{ consultation.status ?? 'Not found' }}
                                                         </td>
 
 
@@ -277,7 +274,7 @@
                                                     @empty {
                                                     <tr>
                                                         <td colspan="8" class="text-center py-6 text-gray-500">
-                                                            No appointments found
+                                                            No consultations found
                                                         </td>
                                                     </tr>
                                                     }
@@ -307,5 +304,5 @@
 
 <!-- LOADING -->
 <ng-template #loadingTpl>
-    <span class="animate-pulse">Loading appointments...</span>
+    <span class="animate-pulse">Loading consultations...</span>
 </ng-template>

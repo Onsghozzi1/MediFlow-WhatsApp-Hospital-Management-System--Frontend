@@ -5,6 +5,7 @@ import { Observable, tap } from 'rxjs';
 import { UserStoreService } from '../user-store/user-store-service';
 import Swal from 'sweetalert2';
 import { API_ENDPOINTS } from './../endpoints';
+import { MatDialog } from '@angular/material/dialog';
 
 export interface User {
   idUser?: number;
@@ -32,7 +33,9 @@ export class AuthService {
   constructor(
     private apiService: ApiService,
     private router: Router,
-    private userStoreService: UserStoreService
+    private userStoreService: UserStoreService,
+    private dialog: MatDialog,
+
   ) {
     this.initAuth();
   }
@@ -60,10 +63,10 @@ export class AuthService {
     }
   }
 
-  
+
   /** Save user to localStorage and update UserStore */
   private saveUser(user: User): void {
-    
+
     localStorage.setItem(this.USER_KEY, JSON.stringify(user));
     this.userStoreService.setUser(user);
     this.isAuthenticated.set(true);
@@ -75,12 +78,12 @@ export class AuthService {
     return this.apiService
       .postWithoutAuth<{ user: any; jwtToken: string }>(API_ENDPOINTS.AUTH.LOGIN, { email, password })
       .pipe(
-        
+
         tap((response) => {
           if (!response) {
             throw new Error('No response received from server');
           }
-          
+
 
           const { user, jwtToken } = response;
           const userData: User = {
@@ -88,7 +91,7 @@ export class AuthService {
             access_token: jwtToken,
             expires_at: Date.now() + 3600 * 1000, // 1h
           };
- 
+
           this.saveUser(userData); // ✅ enregistré seulement ici
           this.startAutoLogoutTimer(userData.expires_at!);
         })
@@ -108,10 +111,9 @@ export class AuthService {
     this.logoutTimer = setTimeout(() => {
       Swal.fire({
         icon: 'warning',
-        title: 'انتهت الجلسة',
-        text: 'انتهت جلسة العمل الخاصة بك. يرجى تسجيل الدخول مرة أخرى.',
-
-        confirmButtonText: 'OK'
+        title: 'Session Expired',
+        text: 'Your session has expired. Please log in again.',
+      
       }).then(() => this.logout());
     }, timeRemaining);
   }
@@ -125,10 +127,16 @@ export class AuthService {
   }
   /** Logout user */
   logout(): void {
+  
     this.clearLogoutTimer();
     localStorage.removeItem(this.USER_KEY);
     this.isAuthenticated.set(false);
     this.userStoreService.setUser(null);
+      // Close all dialogs
+    this.dialog.closeAll();
+
+    // Close SweetAlert if opened
+    Swal.close();
     this.router.navigate(['/login']);
   }
 

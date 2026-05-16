@@ -16,7 +16,9 @@
                                     <h3>Appointment Management</h3>
 
 
-                                    <button class="btn flex items-center gap-2 btn-consultation text-white me-2 font-light" (click)="go()">
+                                    <button
+                                        class="btn flex items-center gap-2 btn-consultation text-white me-2 font-light"
+                                        (click)="go()">
 
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                             aria-hidden="true" class="w-6 h-6">
@@ -238,7 +240,8 @@
 
                                                                 <option [ngValue]="AppointmentStatus.PENDING">Pending
                                                                 </option>
-                                                                   <option [ngValue]="AppointmentStatus.SCHEDULED">SCHEDULED
+                                                                <option [ngValue]="AppointmentStatus.SCHEDULED">
+                                                                    SCHEDULED
                                                                 </option>
                                                                 <option [ngValue]="AppointmentStatus.CONFIRMED">
                                                                     Confirmed</option>

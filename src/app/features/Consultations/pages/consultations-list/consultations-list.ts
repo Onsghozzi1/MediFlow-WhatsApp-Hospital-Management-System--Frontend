@@ -113,5 +113,7 @@ export class ConsultationsList {
     });
 
   }
-
+edit(id:Number){
+  this.route.navigate(['consultation-details', id]);
+}
 }
