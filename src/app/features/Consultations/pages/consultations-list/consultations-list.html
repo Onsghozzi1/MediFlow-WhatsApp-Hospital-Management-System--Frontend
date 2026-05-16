@@ -1,0 +1,311 @@
+<!-- App Start -->
+<div id="root">
+    <div class="app-layout-stacked-side flex flex-auto flex-col">
+        <div class="flex flex-auto min-w-0">
+
+            <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full">
+                <div class="h-full flex flex-auto flex-col justify-between">
+
+                    <!-- Content -->
+                    <main class="h-full">
+                        <div class="page-container px-4 sm:px-6 md:px-8 py-4 sm:py-6">
+                            <div class="container mx-auto">
+
+                                <!-- HEADER -->
+                                <div class="mb-4 flex items-center justify-between">
+                                    <div class="col-lg-6 col-md-12">
+                                        <div>
+                                            <h2 class="fw-bold mb-1 consultation-title">
+                                                Medical Consultation Center
+                                            </h2>
+
+                                            <p class="text-muted mb-0">
+                                                Manage consultations, prescriptions and patient records
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <button
+                                        class="btn flex items-center gap-2 btn-consultation text-white me-2 font-light"
+                                        (click)="startConsultation()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                            aria-hidden="true" class="w-5 h-5">
+                                            <path
+                                                d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z">
+                                            </path>
+                                        </svg>
+                                        Start Consultation
+                                    </button>
+
+                                </div>
+
+                                <!-- STATS -->
+                                <!-- STATS CARDS -->
+                                <div
+                                    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 mb-6 items-stretch">
+
+                                    <!-- CARD 1 - Total Appointments -->
+                                    <div style="background-color: azure;"
+                                        class="card rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition h-full">
+
+                                        <div class="p-4 flex flex-col justify-between h-full">
+
+                                            <span class="text-xs font-medium text-slate-400 uppercase tracking-wider">
+                                                Total Consultations
+                                            </span>
+
+                                            <h3 class="mt-2 text-2xl font-bold text-slate-800 flex items-center gap-2">
+
+                                                @if (!isLoading) {
+                                                <span> {{consultation_.total_Consultation ?? 0}}
+                                                </span>
+                                                } @else {
+                                                <ng-container>
+                                                    <svg class="animate-spin text-sky-600 h-6 w-6" viewBox="0 0 16 16"
+                                                        fill="currentColor">
+                                                        <path d="M8 0c-4.355 0-7.898 3.481-7.998 7.812..."></path>
+                                                    </svg>
+                                                </ng-container>
+                                                }
+
+                                            </h3>
+
+                                        </div>
+                                    </div>
+
+                                    <!-- CARD 2 - Today's Appointments -->
+                                    <div style="background-color: #dcfce7;"
+                                        class="card rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition h-full">
+
+                                        <div class="p-4 flex flex-col justify-between h-full">
+
+                                            <span class="text-xs font-medium text-slate-400 uppercase tracking-wider">
+                                                Today Sessions
+                                            </span>
+
+                                            <h3 class="mt-2 text-2xl font-bold text-slate-800 flex items-center gap-2">
+
+                                                @if (!isLoading) {
+                                                <span> {{consultation_.today_Consultation ??0}}
+                                                </span>
+                                                } @else {
+                                                <ng-container>
+                                                    <svg class="animate-spin text-sky-600 h-6 w-6" viewBox="0 0 16 16"
+                                                        fill="currentColor">
+                                                        <path d="M8 0c-4.355 0-7.898 3.481-7.998 7.812..."></path>
+                                                    </svg>
+                                                </ng-container>
+                                                }
+
+                                            </h3>
+                                        </div>
+                                    </div>
+
+                                    <!-- CARD 3 - Upcoming -->
+                                    <div style="background-color: #fff9db;"
+                                        class="card rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition h-full">
+
+                                        <div class="p-4 flex flex-col justify-between h-full">
+
+                                            <span class="text-xs font-medium text-slate-400 uppercase tracking-wider">
+                                                PENDING
+                                            </span>
+                                            <h3 class="mt-2 text-2xl font-bold text-slate-800 flex items-center gap-2">
+
+                                                @if (!isLoading) {
+                                                <span> {{consultation_.upcoming ?? 0}}
+                                                </span>
+                                                } @else {
+                                                <ng-container>
+                                                    <svg class="animate-spin text-sky-600 h-6 w-6" viewBox="0 0 16 16"
+                                                        fill="currentColor">
+                                                        <path d="M8 0c-4.355 0-7.898 3.481-7.998 7.812..."></path>
+                                                    </svg>
+                                                </ng-container>
+                                                }
+
+                                            </h3>
+
+                                        </div>
+                                    </div>
+                                    <!-- CARD 4 - Completed -->
+                                    <div style="background-color: #e0e7ff;"
+                                        class="card rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition h-full">
+
+                                        <div class="p-4 flex flex-col justify-between h-full">
+
+                                            <span class="text-xs font-medium text-slate-400 uppercase tracking-wider">
+                                                Completed
+                                            </span>
+
+
+
+                                            <h3 class="mt-2 text-2xl font-bold text-slate-800 flex items-center gap-2">
+
+                                                @if (!isLoading) {
+                                                <span> {{consultation_.completed ?? 0}}
+                                                </span>
+                                                } @else {
+                                                <ng-container>
+                                                    <svg class="animate-spin text-sky-600 h-6 w-6" viewBox="0 0 16 16"
+                                                        fill="currentColor">
+                                                        <path d="M8 0c-4.355 0-7.898 3.481-7.998 7.812..."></path>
+                                                    </svg>
+                                                </ng-container>
+                                                }
+
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- TABLE -->
+                                <div class="card consultation-table">
+                                    <div class="card-body">
+                                        <div class="overflow-x-auto">
+
+                                            <table class="table-default table-hover min-w-full">
+
+                                                <thead>
+                                                    <tr>
+                                                        <th>Patient</th>
+                                                        <th>symptoms</th>
+                                                        <th>Diagnosis</th>
+                                                        <th>Prescription</th>
+                                                        <th>Status</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    @for (
+                                                    appointment of (consultation_.content ?? []);
+                                                    track appointment;
+                                                    let i = $index
+                                                    ){
+
+                                                    <tr>
+
+                                                        <!-- Patient -->
+                                                        <td>
+                                                            {{ appointment?.patient?.fullName ?? 'Not found' }}
+                                                        </td>
+
+                                                        <!-- Doctor -->
+                                                        <td>
+                                                            {{ appointment.symptoms ?? 'Not found' }}
+                                                        </td>
+
+                                                        <!-- Date -->
+                                                        <td>
+                                                            {{ appointment.diagnosis ?? 'Not found' }}
+                                                        </td>
+                                                        <!-- Priority -->
+                                                        <td>
+
+                                                            <!-- IF PRESCRIPTIONS EXIST -->
+                                                            <div *ngIf="appointment.dto?.length">
+
+                                                                <!-- BUTTON -->
+                                                                <div 
+                                                                    data-bs-toggle="collapse"
+                                                                    [attr.data-bs-target]="'#prescription' + i">
+
+                                                                    <i class="bi bi-capsule-pill me-1"></i>
+
+                                                                    {{ appointment.dto.length }}
+                                                                    Prescription
+
+                                                                </div>
+
+                                                                <!-- COLLAPSE CONTENT -->
+                                                                <div class="collapse mt-3" [id]="'prescription' + i">
+
+                                                                    <div *ngFor="let p of appointment.dto"
+                                                                        class="prescription-card">
+
+                                                                        <div class="mb-2">
+                                                                            <strong>Medicine:</strong>
+                                                                            {{ p.medicineName }}
+                                                                        </div>
+
+                                                                        <div class="mb-2">
+                                                                            <strong>Dosage:</strong>
+                                                                            {{ p.dosage }}
+                                                                        </div>
+
+                                                                        <div class="mb-2">
+                                                                            <strong>Frequency:</strong>
+                                                                            {{ p.frequency }}
+                                                                        </div>
+
+                                                                        <div class="mb-2">
+                                                                            <strong>Duration:</strong>
+                                                                            {{ p.duration }}
+                                                                        </div>
+
+                                                                        <div>
+                                                                            <strong>Instructions:</strong>
+                                                                            {{ p.instructions }}
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                            <!-- NO PRESCRIPTIONS -->
+                                                            <span *ngIf="!appointment.dto?.length"
+                                                                class="badge bg-light text-dark">
+                                                                No Prescription
+
+                                                            </span>
+
+                                                        </td>
+
+
+
+                                                        <!-- Status -->
+                                                        <td class="px-3 py-1 col-status ">
+                                                            {{ appointment.status ?? 'Not found' }}
+                                                        </td>
+
+
+                                                    </tr>
+                                                    }
+
+                                                    @empty {
+                                                    <tr>
+                                                        <td colspan="8" class="text-center py-6 text-gray-500">
+                                                            No appointments found
+                                                        </td>
+                                                    </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+
+                                            <!-- PAGINATOR -->
+                                            <mat-paginator [length]="consultation_.totalElements"
+                                                [pageSize]="consultation_.pageSize" [pageIndex]="pageIndex"
+                                                [pageSizeOptions]="[5,10,20,50]" showFirstLastButtons>
+                                            </mat-paginator>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </main>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- LOADING -->
+<ng-template #loadingTpl>
+    <span class="animate-pulse">Loading appointments...</span>
+</ng-template>

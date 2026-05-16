@@ -106,7 +106,6 @@ export class AddAppointment {
   initForm() {
     this.appointmentForm = this.fb.group({
       patientId: [0],
-      doctorEmail: [this.user().email],
       appointmentDate: [],
       status: [AppointmentStatus.PENDING],
       appointmentType: [null],

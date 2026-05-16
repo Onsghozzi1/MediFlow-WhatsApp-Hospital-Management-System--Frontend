@@ -16,10 +16,7 @@
                                     <h3>Appointment Management</h3>
 
 
-                                    <button class="btn flex items-center gap-2 bg-sky-50 dark:bg-sky-500 
-                    dark:bg-opacity-20 hover:bg-sky-100 dark:hover:bg-sky-500 
-                    dark:hover:bg-opacity-30 active:bg-sky-200 dark:active:bg-sky-500 
-                    dark:active:bg-opacity-40 text-sky-800 mr-2" (click)="go()">
+                                    <button class="btn flex items-center gap-2 btn-consultation text-white me-2 font-light" (click)="go()">
 
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                             aria-hidden="true" class="w-6 h-6">
@@ -317,7 +314,7 @@
                                                                         clip-rule="evenodd"></path>
                                                                 </svg>
                                                             </div>
-                                                            <div (click)="snooze_reminder(appointment.patientId)"
+                                                            <div (click)="snooze_reminder(appointment.whatsApp_number)"
                                                                 class="text-indigo-600 cursor-pointer select-none font-semibold">
                                                                 <svg xmlns="http://www.w3.org/2000/svg"
                                                                     viewBox="0 0 20 20" fill="currentColor"

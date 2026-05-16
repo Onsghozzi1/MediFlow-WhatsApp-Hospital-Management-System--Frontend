@@ -26,7 +26,7 @@ export class ListAppointment implements OnInit {
 
 
   patient_Control = new FormControl('');
-  date_Control= new FormControl(null);
+  date_Control = new FormControl(null);
   priority_Control = new FormControl(null);
   status_Control = new FormControl(null);
   type_Control = new FormControl(null);
@@ -175,9 +175,14 @@ export class ListAppointment implements OnInit {
     });
   }
 
-  snooze_reminder(patientId: any) {
+  snooze_reminder(whatsApp_number: any) {
+    const whatsapp = {
+      message: "Ahlaa hind",
+      phone: whatsApp_number
+    };
+    console.log("WATSAPPPP" + JSON.stringify(whatsapp))
 
-    this.appointmentService.sendWhatsApp(patientId).subscribe({
+    this.appointmentService.sendWhatsApp(whatsapp).subscribe({
 
       next: (data: any) => {
         console.log(data);
@@ -238,12 +243,12 @@ export class ListAppointment implements OnInit {
     this.patient_Control.setValue(patient);
   }
   search_data(): void {
-  console.log("this.filter.Priority "+this.priority_Control.value)
+    console.log("this.filter.Priority " + this.priority_Control.value)
     this.filter.patient_name = this.patient_Control.value || '';
-    this.filter.appointmentDate=this.date_Control.value ;
-    this.filter.priority=this.priority_Control.value
-    this.filter.status=this.status_Control.value
-    this.filter.appointment_Type=this.type_Control.value
+    this.filter.appointmentDate = this.date_Control.value;
+    this.filter.priority = this.priority_Control.value
+    this.filter.status = this.status_Control.value
+    this.filter.appointment_Type = this.type_Control.value
     this.appointmentService.GetAppointmentList(
       this.List_appointments.pageNo,
       this.List_appointments.pageSize,

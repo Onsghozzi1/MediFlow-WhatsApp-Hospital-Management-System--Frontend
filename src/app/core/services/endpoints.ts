@@ -12,6 +12,7 @@ export const API_ENDPOINTS = {
     DELETE: '/delete',
     GETAPPO: '/get_patients',
     List_Patient: '/all_list_patients',
+    Consultation_patient:'/list_consultation_patients'
   },
   APPOINTMENTS: {
     BASE: 'Appointment',
@@ -27,7 +28,10 @@ export const API_ENDPOINTS = {
   APPOINTMENTS_patient: {
     BASE: 'patient_appointments',
     POST: '/add_appointment_patient',
-  
-
+  },
+  Consultations:{
+    base:'consultation',
+    POST:'/answer',
+    GETALL:'/ConsultationPagination'
   }
 };

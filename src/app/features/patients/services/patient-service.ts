@@ -59,5 +59,9 @@ GetAllList(){
     `${API_ENDPOINTS.PATIENTS.BASE}${API_ENDPOINTS.PATIENTS.List_Patient}`
   );
 }
-
+Consultation_patient(){
+    return this.apiService.get(
+    `${API_ENDPOINTS.PATIENTS.BASE}${API_ENDPOINTS.PATIENTS.Consultation_patient}`
+  );
+}
 }

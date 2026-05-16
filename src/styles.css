@@ -23,4 +23,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 .fix{display: flex;
     gap: 10px;}
+    /* BUTTON */
+.btn-consultation {
+    background: linear-gradient(135deg, #12b0c3, #13b6ad);
     
+    color: #fff;
+    border: none;
+    transition: 0.3s;
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.2);
+}
+.btn-consultation:hover {
+    transform: translateY(-2px);
+    color: #fff;
+}

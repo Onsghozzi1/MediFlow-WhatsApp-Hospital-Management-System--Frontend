@@ -55,16 +55,14 @@ export class Appointment {
   // WATSAPP Appointment
   // =========================
 
-sendWhatsApp(patientId: number) {
 
-  const params = new HttpParams()
-    .set('patientId', patientId);
 
-  return this.apiService.get<any>(
-    `${API_ENDPOINTS.APPOINTMENTS.BASE}${API_ENDPOINTS.APPOINTMENTS.WATSAPP}`,
-    params
-  );
-}
+  sendWhatsApp(dto: any): Observable<any> {
+    return this.apiService.post(
+      `${API_ENDPOINTS.APPOINTMENTS.BASE}${API_ENDPOINTS.APPOINTMENTS.WATSAPP}`,
+      dto
+    );
+  }
 
 GetAllPatientsApoinment(): Observable<any> {
   return this.apiService.get(

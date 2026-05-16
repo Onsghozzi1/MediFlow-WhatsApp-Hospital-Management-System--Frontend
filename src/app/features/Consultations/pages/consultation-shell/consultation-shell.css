@@ -1,0 +1,204 @@
+.terminal {
+
+  background: #0d1117;
+  color: #00ff9c;
+
+
+  overflow: hidden;
+
+  font-family: 'Courier New', monospace;
+
+  box-shadow:
+    0 0 30px rgba(0,255,156,0.15);
+
+}
+.terminal-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+    background: #161b22;
+
+  padding: 12px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  border-bottom: 1px solid #30363d;
+}
+
+.close-btn{
+  background:none;
+  border:none;
+  color:white;
+  cursor:pointer;
+  font-size:18px;
+}
+
+
+.dot {
+
+  width: 12px;
+  height: 12px;
+
+  border-radius: 50%;
+
+}
+
+.red {
+  background: #ff5f56;
+}
+
+.yellow {
+  background: #ffbd2e;
+}
+
+.green {
+  background: #27c93f;
+}
+
+.terminal-body {
+
+  padding: 20px;
+
+  height: 500px;
+
+  overflow-y: auto;
+
+}
+
+.terminal-line {
+
+  margin-bottom: 10px;
+
+  animation: fadeIn 0.3s ease;
+
+}
+
+.input-line {
+
+  display: flex;
+  align-items: center;
+
+  margin-top: 20px;
+
+}
+
+.prompt {
+
+  margin-right: 10px;
+
+  color: #58a6ff;
+
+}
+
+input {
+
+  background: transparent;
+
+  border: none;
+
+  outline: none;
+
+  color: white;
+
+  width: 100%;
+
+  font-size: 15px;
+
+  font-family: inherit;
+
+}
+
+@keyframes fadeIn {
+
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}
+.suggestions {
+
+  margin-top: 10px;
+
+  border: 1px solid #30363d;
+
+  border-radius: 10px;
+
+  overflow: hidden;
+
+  background: #161b22;
+
+}
+
+.suggestion-item {
+
+  padding: 10px 15px;
+
+  cursor: pointer;
+
+  color: #58a6ff;
+
+  border-bottom: 1px solid #222;
+
+  transition: 0.2s;
+
+}
+
+.suggestion-item:hover {
+
+  background: #21262d;
+
+  padding-left: 20px;
+
+}
+.question{
+  color:#00ff88;
+}
+
+.response{
+  color:white;
+}
+
+.appointment{
+  color:#00bfff;
+}
+
+.error{
+  color:red;
+}
+/* ==================================================== */
+/* CUSTOM SCROLLBAR */
+/* ==================================================== */
+
+.terminal-body::-webkit-scrollbar {
+
+  width: 8px;
+
+}
+
+.terminal-body::-webkit-scrollbar-track {
+
+  background: #0d1117;
+
+}
+
+.terminal-body::-webkit-scrollbar-thumb {
+
+  background: #30363d;
+
+  border-radius: 10px;
+
+}
+
+.terminal-body::-webkit-scrollbar-thumb:hover {
+
+  background: #58a6ff;
+
+}

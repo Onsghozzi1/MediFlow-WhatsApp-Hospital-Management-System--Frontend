@@ -1,0 +1,49 @@
+<div class="terminal">
+
+  <div class="terminal-header">
+    CareFlow Consultation Shell
+    <button class="close-btn" (click)="closeTerminal()">
+      ✖
+    </button>
+  </div>
+
+
+  <div class="terminal-body" #terminalBody>
+
+    <!-- TERMINAL OUTPUT -->
+
+    <div *ngFor="let line of terminalLines" class="terminal-line" [class.question]="line.includes('?')"
+      [class.response]="line.startsWith('>')" [class.appointment]="line.includes('Next appointment')"
+      [class.error]="line.includes('Error')">
+      {{ line }}
+    </div>
+    <!-- SCROLL TARGET -->
+
+  
+    <!-- AUTOCOMPLETE -->
+
+    <div class="suggestions" *ngIf="filteredPatients.length > 0 && !isPatientSelected">
+
+      <div class="suggestion-item" *ngFor="let patient of filteredPatients" (click)="selectPatient(patient)">
+
+        {{ patient.full_name_patient }}
+
+      </div>
+
+    </div>
+
+    <!-- INPUT -->
+
+    <div class="input-line">
+
+      <span class="prompt">
+        doctor@careflow:~$
+      </span>
+
+      <input [(ngModel)]="userInput" (input)="onTyping()" (keydown.enter)="submitAnswer()" autofocus />
+
+    </div>
+  <div #bottomAnchor></div>
+  </div>
+
+</div>

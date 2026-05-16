@@ -25,7 +25,8 @@ export enum AppointmentStatus {
   PENDING = 'PENDING',
   CONFIRMED = 'CONFIRMED',
   DONE = 'DONE',
-  CANCELLED = 'CANCELLED'
+  CANCELLED = 'CANCELLED',
+  SCHEDULED='SCHEDULED'
 }
 export enum AppointmentType {
   CONSULTATION = 'CONSULTATION',

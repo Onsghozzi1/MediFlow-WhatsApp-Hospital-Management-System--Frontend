@@ -23,7 +23,7 @@ import { map, Observable, startWith } from 'rxjs';
 export class List implements OnInit {
   isLoading = false;
   pageIndex = 0;
-  pageSizeOptions = [1, 25, 50];
+  pageSizeOptions = [1, 5, 10, 25, 50];
   patientsList: any[] = [];
   gender = Gender
   medicalRecordIds: string[] = [];
@@ -163,6 +163,11 @@ export class List implements OnInit {
 
     });
   }
+
+  
+  // =========================
+  // LOAD PATIENT FILTER DATA
+  // =========================
   getListPatient() {
     this.isLoading = true;
 
@@ -184,11 +189,6 @@ export class List implements OnInit {
         this.filtred_fullname();
         this.filtred_phone();
         this.filtred_address();
-        console.log("medicalRecordIds:", this.medicalRecordIds);
-        console.log("fullNames:", this.fullNames);
-        console.log("phones:", this.phones);
-        console.log("addresses:", this.addresses);
-
         this.isLoading = false;
       },
 
@@ -272,13 +272,21 @@ export class List implements OnInit {
       p.toLowerCase().includes(query)
     );
   }
+
+
+  // =========================
+  // SEARCH & FILTER PATIENTS
+  // =========================
   search_data(): void {
-    console.log("this.filter.medicalRecordIds " + this.filter.medicalRecordIds)
+    // Assign filter values from form controls
+
     this.filter.medicalRecordIds = this.patient_Control.value || '';
     this.filter.full_name = this.fullname_Control.value;
     this.filter.gender = this.gender_Control.value;
     this.filter.phone = this.phone_Control.value
     this.filter.address = this.address_Control.value
+
+    // Call API to retrieve filtered patient list
     this.patientService.GetPatientList(
       this.List_patients.pageNo,
       this.List_patients.pageSize,
