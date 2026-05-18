@@ -1,1 +1,141 @@
-<p>consultation-details works!</p>
+<div id="root">
+    <!-- App Layout-->
+    <div class="app-layout-simple flex flex-auto flex-col">
+        <div class="flex flex-auto min-w-0">
+            <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full">
+
+                <!-- Popup end-->
+                <!-- Header Nav end -->
+                <div class="h-full flex flex-auto flex-col justify-between">
+                    <!-- Content start -->
+                    <main class="container mx-auto h-full mt-4">
+                        <div
+                            class="page-container relative h-full flex flex-auto flex-col px-4 sm:px-6 md:px-8 py-4 sm:py-6">
+                            <div class="flex items-center gap-3 mb-6">
+                                <button (click)="back()" class="btn p-2 rounded-lg hover:bg-gray-100 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                                    </svg>
+                                </button>
+                                <h3 class="text-2xl font-bold text-gray-800">
+
+                                    Consultation Details</h3>
+                            </div>
+                            <div class="container mx-auto">
+                                <div class="flex flex-col xl:flex-row gap-4">
+                                    <div class="card card-layout-frame">
+                                        <div class="card-body">
+                                            <div
+                                                class="flex flex-col xl:justify-between h-full 2xl:min-w-[360px] mx-auto">
+                                                <div class="flex xl:flex-col items-center gap-4">
+                                                    <span class="avatar avatar-circle avatar-lg" data-avatar-size="90">
+                                                        <img class="avatar-img avatar-circle"
+                                                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHgl-0Aegj7gm7ocOnHh27E0xuE2OpLl5wiw&s"
+                                                            loading="lazy">
+                                                    </span>
+                                                    <h4 class="font-bold">{{patient_list.fullName ?? 'NOT FOUND'}}
+                                                    </h4>
+                                                    <div>
+                                                        <span>{{patient_list.medical_Record_ID ?? 'NOT FOUND'}}</span>
+
+                                                    </div>
+                                                </div>
+
+                                                <div
+                                                    class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1 gap-y-7 gap-x-4 mt-10">
+                                                    <div>
+                                                        <span>Email</span>
+                                                        <p class="text-gray-700 dark:text-gray-200 font-semibold">
+                                                            {{patient_list.email ?? 'NOT FOUND'}}</p>
+                                                    </div>
+                                                    <div>
+                                                        <span>Phone</span>
+                                                        <p class="text-gray-700 dark:text-gray-200 font-semibold">
+                                                            {{patient_list.whatsappNumber ?? 'NOT FOUND'}}</p>
+                                                    </div>
+                                                    <div>
+                                                        <span>Location</span>
+                                                        <p class="text-gray-700 dark:text-gray-200 font-semibold">
+                                                            {{patient_list.address ?? 'NOT FOUND'}}</p>
+                                                    </div>
+                                                    <div>
+                                                        <span>Date of birth</span>
+                                                        <p class="text-gray-700 dark:text-gray-200 font-semibold">
+                                                            {{patient_list.birthDate ?? 'NOT FOUND'}}</p>
+                                                    </div>
+
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="w-full">
+
+                                        <div class="mb-8">
+                                            <h6 class="mb-4">Prescription History</h6>
+
+                                            <div class="overflow-x-auto">
+                                                <table class="table-default table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Medicine</th>
+                                                            <th>Dosage</th>
+                                                            <th>Frequency</th>
+                                                            <th>Duration</th>
+                                                            <th>Instructions</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                        <tr *ngFor="let item of prescription_list">
+                                                            <td>{{ item.id }}</td>
+                                                            <td>{{ item.medicineName }}</td>
+                                                            <td>{{ item.dosage }}</td>
+                                                            <td>{{ item.frequency }}</td>
+                                                            <td>{{ item.duration }}</td>
+                                                            <td>{{ item.instructions }}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="rounded-lg border border-gray-200 dark:border-gray-600">
+                                                <div
+                                                    class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 p-4 border-b border-gray-200 dark:border-gray-600">
+                                                    <div class="flex items-center gap-3">
+                                                        <div>
+                                                            <div class="flex items-center">
+                                                                <div
+                                                                    class="text-gray-900 dark:text-gray-100 font-semibold">
+                                                                    NOTES</div>
+                                                                <div
+                                                                    class="tag bg-sky-100 text-sky-600 dark:bg-sky-500/20 dark:text-sky-100 rounded-md border-0 mx-2">
+                                                                    <span class="capitalize">
+                                                                        {{this.appointment.status ?? 'NOT FOUND'}}
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <span>{{this.appointment.notes}}</span>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                    <!-- Content end -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

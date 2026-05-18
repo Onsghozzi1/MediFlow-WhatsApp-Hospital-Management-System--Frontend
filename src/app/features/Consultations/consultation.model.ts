@@ -1,6 +1,6 @@
 
 export interface consultation_filter {
-
+id:any;
 
 
 }

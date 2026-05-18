@@ -25,7 +25,7 @@ export class ConsultationsList {
   pageSizeOptions = [1, 25, 50];
 
   filter: consultation_filter = {
-
+    id: 0
   };
 
 
@@ -113,7 +113,8 @@ export class ConsultationsList {
     });
 
   }
-edit(id:Number){
-  this.route.navigate(['consultation-details', id]);
-}
+  edit(id: Number) {
+    this.route.navigate(['Consultation/consultation-details', id]);
+  }
+
 }
